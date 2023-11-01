@@ -32,7 +32,7 @@ students = [
 ]
 
 # 创建 Excel 文件
-excel_file = 'Online-Learning-Platform-Server-side/tools/accountData.xlsx'
+excel_file = 'Online-Learning-Platform/tools/accountData.xlsx'
 writer = pd.ExcelWriter(excel_file)
 
 # 创建数据框

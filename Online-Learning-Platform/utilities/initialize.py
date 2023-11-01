@@ -16,12 +16,12 @@ def initialize():
 
     data = {}
     for file_name in files:
-        if not os.path.exists("Online-Learning-Platform-Server-side/" + file_name):
+        if not os.path.exists("Online-Learning-Platform/" + file_name):
             # 文件不存在，生成文件
             
             
             if file_name == files[0]:
-                with open("Online-Learning-Platform-Server-side/" + file_name, 'w') as file:
+                with open("Online-Learning-Platform/" + file_name, 'w') as file:
                     print(f"文件 '{file_name}' 不存在，正在初始化文件。請輸入初始管理員密碼：\n")
                     password = input("<Password of Administrator>")
                     hashed_password = generate_password_hash(password)
@@ -48,7 +48,7 @@ def initialize():
                         'SpecialEducationalNeeds' : '/',
                         'Nationality' : '/'
                 })
-                with open("Online-Learning-Platform-Server-side/data/accountData.json", 'w') as file:
+                with open("Online-Learning-Platform/data/accountData.json", 'w') as file:
                     json.dump(accountData, file, indent=4)
         else:
             print(f"文件 '{file_name}' 已存在。")

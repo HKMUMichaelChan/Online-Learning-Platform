@@ -101,13 +101,13 @@ def upload():
             file = request.files['file']
             filename = secure_filename(file.filename)
             extension = filename.rsplit('.', 1)[1].lower()
-            if not os.path.exists("Online-Learning-Platform-Server-side/static/accountIcon/" + session['username'] + ".jpg"):
-                with open("Online-Learning-Platform-Server-side/static/accountIcon/" + session['username'] + ".jpg",'w') as file:
+            if not os.path.exists("Online-Learning-Platform/static/accountIcon/" + session['username'] + ".jpg"):
+                with open("Online-Learning-Platform/static/accountIcon/" + session['username'] + ".jpg",'w') as file:
                     pass
             if extension == 'jpg' or extension == 'jpeg':
 
                     
-                file.save("Online-Learning-Platform-Server-side/static/accountIcon/" + session['username'] + ".jpg")
+                file.save("Online-Learning-Platform/static/accountIcon/" + session['username'] + ".jpg")
                 return render_template_string('''
                     <script>
                         function closeWindow() {
@@ -121,7 +121,7 @@ def upload():
                 # 文件是 JPG 类型
             elif extension == 'png':
                     
-                convert_png_to_jpg(file, "Online-Learning-Platform-Server-side/static/accountIcon/" + session['username'] + ".jpg")
+                convert_png_to_jpg(file, "Online-Learning-Platform/static/accountIcon/" + session['username'] + ".jpg")
                 # 文件是 PNG 类型
                 return render_template_string('''
                     <script>
@@ -195,7 +195,7 @@ def personal_info():
             # 在这里进行受保护的操作
             # return f"欢迎回来，{session['username']}！"
             data = [item for item in accountData if item["AccountID"] == session['username'] ][0]
-            if os.path.exists("Online-Learning-Platform-Server-side/static/accountIcon/" + session['username'] + ".jpg"):
+            if os.path.exists("Online-Learning-Platform/static/accountIcon/" + session['username'] + ".jpg"):
                 icon_path = "/static/accountIcon/" + session['username'] + ".jpg"
             else:
                 icon_path = "/static/accountIcon/00000000.jpg"
@@ -278,9 +278,9 @@ def logout():
 if __name__ == "__main__":
     # 检查系统是否已经初始化
     initialize()
-    data = jsonIO.load_data("Online-Learning-Platform-Server-side/data/auth.json")
-    accountData = jsonIO.load_data("Online-Learning-Platform-Server-side/data/accountData.json")
+    data = jsonIO.load_data("Online-Learning-Platform/data/auth.json")
+    accountData = jsonIO.load_data("Online-Learning-Platform/data/accountData.json")
     users = []
     for dat in data:
         users.append(dat['username'])
-    app.run()
+    app.run(host= '0.0.0.0' ,port=8080)

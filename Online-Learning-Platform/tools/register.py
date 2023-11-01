@@ -21,10 +21,10 @@ def excel_to_json(file_path ):
   
 
     # 创建JSON数据
-    with open("Online-Learning-Platform-Server-side/data/auth.json", 'r') as file:
+    with open("Online-Learning-Platform/data/auth.json", 'r') as file:
         data  = json.load(file)
 
-    with open("Online-Learning-Platform-Server-side/data/accountData.json", 'r') as file:
+    with open("Online-Learning-Platform/data/accountData.json", 'r') as file:
         accountData  = json.load(file)
 
     user = []
@@ -53,7 +53,7 @@ def excel_to_json(file_path ):
                     'Nationality' : Nationality
             })
             print("已新增 " + str(AccountID))
-            with open("Online-Learning-Platform-Server-side/data/accountData.json", 'w') as file:
+            with open("Online-Learning-Platform/data/accountData.json", 'w') as file:
                 json.dump(accountData, file, indent=4)
 
 
@@ -63,7 +63,7 @@ def excel_to_json(file_path ):
 
 # 示例使用
 if __name__ == "__main__":
-    file_path = "Online-Learning-Platform-Server-side/tools/accountData.xlsx"  # Excel文件路径
+    file_path = "Online-Learning-Platform/tools/accountData.xlsx"  # Excel文件路径
 
     
     
@@ -73,5 +73,5 @@ if __name__ == "__main__":
 
 
     print(json_data)
-    with open("Online-Learning-Platform-Server-side/data/auth.json", 'w') as file:
+    with open("Online-Learning-Platform/data/auth.json", 'w') as file:
         json.dump(json_data, file, indent=4)

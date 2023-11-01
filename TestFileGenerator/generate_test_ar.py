@@ -8,7 +8,7 @@ semesters = ['第一学期', '第二学期']
 grades = [random.choice(['A', 'B', 'C', 'D', 'E', 'F']) for _ in range(len(subjects) * len(semesters))]
 
 # 创建 Excel 文件
-excel_file = f'Online-Learning-Platform-Server-side/data/academicRecordsData/ar{sid}.xlsx'
+excel_file = f'Online-Learning-Platform/data/academicRecordsData/ar{sid}.xlsx'
 writer = pd.ExcelWriter(excel_file)
 
 # 填充数据框并写入不同工作表

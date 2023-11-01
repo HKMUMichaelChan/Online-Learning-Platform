@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>主页</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',     filename='/css/index.css') }}">
+</head>
+<body>
+    <div class="toolbar">
+      <div class="logo">
+        <img src="\static\image\icon.png" alt="Logo" height="80">
+        <div class="brand">
+            <span>歡迎回來 {{accountData['LastName']}} {{accountData['FirstName']}}</span> <!-- 添加的文字内容 -->
+        </div>
+      </div>
+      <div class="links">
+        
+
+        <ul>
+          <li><a href="/home">Home</a></li>
+          <li><a href="/logout">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  
+    
+      {% block MainContent %}{% endblock %}
+  </body>
+</html>

@@ -1,0 +1,94 @@
+table {
+
+    border-collapse: collapse;
+
+    float: left;
+  }
+  
+  th, td {
+
+    padding: 8px;
+
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  img{
+    height: 240px;
+    max-height: 240px;
+    
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  
+
+
+  .container{
+    justify-content: start;
+  }
+  .icon-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 240px;
+    width: 240px;
+  }
+  table button{
+    display: flex;
+    align-items: center;
+    font-weight:bold;
+    letter-spacing: 4px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 10px 40px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    height: 70px  ;
+  }
+  table button:hover {
+    background-color: #2a5cc9;
+  }
+  .buttonTD{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  
+
+td .edit-container {
+    display: flex;
+    align-items: center;
+}
+
+td .text {
+    margin-right: 10px;
+}
+
+td .input-field {
+    display: none;
+    margin-right: 10px;
+}
+
+td .buttonsArea {
+    display: flex;
+    align-items: center;
+}
+
+td  .cancel-button {
+  display: inline-block;
+    margin-right: 10px;
+}
+
+td .submit-button{
+  display: inline-block;
+    margin-right: 10px;
+}
+
+td .editbutton{
+  display: inline-block;
+  margin-right: 10px;
+}

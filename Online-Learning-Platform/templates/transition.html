@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Transition Page</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',     filename='/css/transition.css') }}">
+
+    
+
+     <script>
+        setTimeout(function() {
+            var variable = "{{target}}";
+            window.location.href = variable;
+        }, 3000);
+    </script> 
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Transition Page</h1>
+        <p>{{message}}</p>
+        <p>Please wait...</p>
+    </div>
+</body>
+</html>

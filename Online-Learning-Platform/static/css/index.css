@@ -1,0 +1,105 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.container {
+  padding: 20px;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+
+  width: 90%;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}
+.btn {
+  padding: 10px 20px;
+  margin-right: 10px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.toolbar {
+  background-color: #333;
+  color: #fff;
+  padding: 00px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 将内容分散对齐 */
+}
+
+.toolbar .logo {
+  padding: 10px;
+  display: flex; /* 将logo容器设为flex布局 */
+}
+
+.toolbar .logo img {
+  margin-right: 10px; /* Logo图标与文字之间的间距 */
+  height: 50px;
+}
+.toolbar .brand {
+  display: flex; /* 将文字容器设为flex布局 */
+  margin-left: 10px; 
+}
+.toolbar .brand span {
+  margin-left: 5px; /* 文字与Logo图标之间的间距 */
+  flex: 1; /* 充满剩余空间 */
+  align-items: center;
+  display: flex;
+}
+.toolbar .links {
+  margin-left: auto;
+}
+
+.toolbar .links a {
+  color: #fff;
+  margin-left: 10px;
+  text-decoration: none;
+}
+ul {
+  list-style: none; /* 去除默认的列表样式 */
+  margin: 0;
+}
+
+li {
+  display: inline-block;
+  margin: 0; /* 可根据需要调整间距 */
+}
+.toolbar .links ul li a {
+  display: flex;
+  align-items: center;
+  font-weight:bold;
+  letter-spacing: 4px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  padding: 10px 40px;
+  margin-left: -5px;
+  margin-right: 0px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  height: 70px  ;
+}
+
+
+.toolbar .links ul li a:hover {
+  background-color: #45a049;
+}
+
+div {
+  margin: 0;
+}

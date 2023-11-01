@@ -1,0 +1,26 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.semester {
+    margin-bottom: 10px;
+}
+
+.subject {
+    margin-bottom: 5px;
+}
+
+.subject-header {
+    font-weight: bold;
+}
+
+.grade {
+    margin-left: 20px;
+}

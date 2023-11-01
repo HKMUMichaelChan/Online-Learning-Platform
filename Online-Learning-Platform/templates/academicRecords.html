@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block MainContent %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='/css/academicRecords.css.css') }}">
+
+
+<h1>My Academic Records</h1>
+
+
+
+
+
+
+<div class="semester">
+    <h2>Semester 1</h2>
+    <div class="subject">
+        <h3 class="subject-header">Math</h3>
+        <p class="grade">Grade: 90</p>
+    </div>
+    <div class="subject">
+        <h3 class="subject-header">Science</h3>
+        <p class="grade">Grade: 85</p>
+    </div>
+</div>
+
+<div class="semester">
+    <h2>Semester 2</h2>
+    <div class="subject">
+        <h3 class="subject-header">English</h3>
+        <p class="grade">Grade: 92</p>
+    </div>
+    <div class="subject">
+        <h3 class="subject-header">History</h3>
+        <p class="grade">Grade: 88</p>
+    </div>
+</div>
+
+
+
+{% endblock %}

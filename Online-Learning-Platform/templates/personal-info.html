@@ -1,0 +1,174 @@
+
+{% extends 'base.html' %}
+
+{% block MainContent %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='/css/personal-info.css') }}">
+<div class="container">
+    
+
+    <table>
+        <tr>
+            <td colspan="3">
+              <h1>个人资料</h1>
+              <hr>
+            </td>
+        
+          <tr>
+            <th>项目</th>
+            <th colspan="2">详情</th>
+          </tr>
+          <tr>
+            
+            <td>Name</td>
+            <td>
+                {{accountData['LastName']}} {{accountData['FirstName']}}
+                {% if role == "0" or role == "2" %}
+                <a href="#" class="edit-button">编辑</a>
+                {% endif %}
+            </td>
+            <td rowspan="5"><div class="icon-container"><img src={{icon_path}} height-max ="80"></div></td>
+          </tr>
+          <tr>
+            <td>Sex</td>
+            <td>
+                {{accountData['Sex']}}
+                {% if role == "0" or role == "2" %}
+                <a href="#" class="edit-button">编辑</a>
+                {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <td>Role</td>
+            <td>
+                {% if role == "0"%}
+                Administrator
+                {% endif %}
+                
+                {% if role == "1"%}
+                學生
+                {% endif %}
+
+                {% if role == "2"%}
+                教師
+                {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <td>Addresses</td>
+            <td>
+              {{accountData['Address']}}
+              {% if role == "0" %}
+              <a href="#" class="edit-button">编辑</a>
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <td>Phones</td>
+            <td>
+              {{accountData['PhoneNo']}}
+
+              <a href="#" class="edit-button">编辑</a>
+
+            </td>
+            
+          </tr>
+          <tr>
+            <td>Special Educational Needs</td>
+            <td >
+              {{accountData['SpecialEducationalNeeds']}}
+              {{accountData['Address']}}
+              {% if role == "0"%}
+              <a href="#" class="edit-button">编辑</a>
+              {% endif %}
+            </td>
+            <td class="buttonTD"><button onclick="openPopup()">上傳頭像</button></td>
+          </tr>
+          <tr>
+            <td>Nationality</td>
+            <td colspan="2">
+              {{accountData['Nationality']}}
+              {% if role == "0" %}
+              <a href="#" class="edit-button">编辑</a>
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="edit-container">
+                <div class="buttonsArea">
+                  <span class="text">这是一段文本。</span>
+                <form class="buttonsArea" action="/editInfo" method="post" >
+
+                    <input type="text" name="editedtext" class="input-field" value="这是一段文本。">
+
+                    <button type="submit" onclick="submitEdit()" class="submit-button">提交</button>
+                  </form>
+                  <button onclick="editText()" class="editbutton">编辑</button>
+                  <button onclick="cancelEdit()" class="cancel-button">取消</button>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+
+        <script>
+            function closePopupAndReload() {
+            window.opener.location.reload();  // 重新加载父窗口页面
+            window.close();  // 关闭弹出窗口
+          }
+            let textElement = document.querySelector('.text');
+            let inputElement = document.querySelector('.input-field');
+            let editButton = document.querySelector('.editbutton');
+            let cancelButton = document.querySelector('.cancel-button');
+            let submitButton = document.querySelector('.submit-button');
+
+            function editText() {
+                textElement.style.display = 'none';
+                inputElement.style.display = 'block';
+                editButton.style.display = 'none';
+                cancelButton.style.display = 'inline-block';
+                submitButton.style.display = 'inline-block';
+            }
+
+            function cancelEdit() {
+                let updatedText = textElement.textContent;
+                inputElement.value = updatedText;
+                textElement.style.display = 'inline-block';
+                inputElement.style.display = 'none';
+                editButton.style.display = 'inline-block';
+                cancelButton.style.display = 'none';
+                submitButton.style.display = 'none';
+            }
+
+            function submitEdit() {
+                let updatedText = inputElement.value;
+                textElement.textContent = updatedText;
+                cancelEdit();
+            }
+            function openPopup() {
+              var popup = window.open('', 'popup', 'width=400,height=300');
+              var html = `
+                <html>
+                <head>
+                  <title>弹出窗口表单</title>
+                </head>
+                <body>
+                    <div class="popup-form">
+                    <h1>上传文件</h1>
+                    <form action="/upload" method="post" enctype="multipart/form-data" onsubmit="closePopupAndReload()">
+                        <input type="file" name="file">
+                        <button type="submit">上传</button>
+                    </form>
+                    </div>
+                </body>
+                
+                </html>
+                
+                `;
+    popup.document.write(html);
+  }
+
+          </script>
+</div>
+{% endblock %}

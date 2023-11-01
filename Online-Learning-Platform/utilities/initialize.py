@@ -41,6 +41,7 @@ def initialize():
                         'AccountID' : '00000000',
                         'LastName' : ' ',
                         'FirstName' : 'Administrator',
+                        'HKID' : 'A123456(7)',
                         'Sex': '/',
                         'Birthday' : '/',
                         'Address' : '/',

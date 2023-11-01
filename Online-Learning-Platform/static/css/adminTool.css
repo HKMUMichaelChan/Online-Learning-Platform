@@ -1,0 +1,73 @@
+.sub-container{
+    min-width: calc(33% - 52px);
+    max-width: calc(33% - 52px);
+    width: calc(33% - 52px);
+    min-height: calc(100% - 52px);
+    max-height : calc(100% - 52px);
+    height: calc(100% - 52px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 5px;
+    padding: 20px;
+    border: 1px black solid;
+    border-radius: 5px;
+}
+.container{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    overflow-y: hidden;
+    overflow-x: scroll;
+}
+
+
+#studentForm, #teacherForm {
+  overflow-y: scroll;
+  min-width: calc(100% - 42px);
+  max-width: calc(100% - 42px); 
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+}
+
+#studentForm h2, #teacherForm h2 {
+  margin-top: 0;
+}
+
+#studentForm label, #teacherForm label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+#studentForm input, #teacherForm input {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.container button{
+  display: block;
+  width: 50%;
+  padding: 10px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.container button:hover {
+  background-color: #45a049;
+}
+
+.container .horizontal{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}

@@ -4,7 +4,7 @@
 {% block MainContent %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='/css/home.css') }}">
 
-    <div class="image-container">
+    <div class="image-container" >
         <!-- <img src="\static\image\Campus.jpg" alt="Logo"> -->
         <div class="menu-container">
 
@@ -12,7 +12,14 @@
                 
                 <li><a href="/personal-info">Personal Info</a></li>
                 <li><a href="/academicRecords">Academic records</a></li>
+
+                {% if role == "0"%}
+                <li><a href="/adminTool">Administrator tools</a></li>
+                {% endif %}
+
+
                 <li><a href="/logout">Logout</a></li>
+
               </ul>
         </div>
     </div>

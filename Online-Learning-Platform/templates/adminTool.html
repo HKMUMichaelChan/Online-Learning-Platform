@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block MainContent %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',     filename='/css/adminTool.css') }}">
+<div class="container">
+
+
+    <div class="sub-container">
+        <h1>個別注冊</h1>
+        <div class = "horizontal">
+            <button onclick="showStudentForm()">學生注冊</button>
+            <button onclick="showTeacherForm()">教師注冊</button>
+        </div>
+
+
+
+        
+        <form id="studentForm" action="/register/student" method="post" style="display: none;">
+            <h2>學生注冊</h2>
+
+
+            <label for="AccountID">AccountID：</label>
+            <input type="text" id="AccountID" name="AccountID" required><br>
+
+            <label for="LastName">LastName：</label>
+            <input type="text" id="LastName" name="LastName" required><br>
+
+            <label for="FirstName">FirstName：</label>
+            <input type="text" id="FirstName" name="FirstName" required><br>
+
+            <label for="Sex">Sex：</label>
+            <input type="text" id="Sex" name="Sex" required><br>
+
+            <label for="HKId">HKID</label>
+            <input type="text" id="HKId" name="HKId" required><br>
+            
+            <label for="Birthday">Birthday：</label>
+            <input type="text" id="Birthday" name="Birthday" required><br>
+
+            <label for="Adderss">Address：</label>
+            <input type="text" id="Adderss" name="Adderss" required><br>
+
+            <label for="PhoneNo">PhoneNo：</label>
+            <input type="text" id="PhoneNo" name="PhoneNo" required><br>
+
+            <label for="SpecialEducationalNeeds">SpecialEducationalNeeds：</label>
+            <input type="text" id="SpecialEducationalNeeds" name="SpecialEducationalNeeds" required><br>
+
+            <label for="Nationality">Nationality：</label>
+            <input type="text" id="Nationality" name="Nationality" required><br>
+
+
+            <button type="submit">提交</button>
+        </form>
+
+            
+        <form id="teacherForm" action="/register/teacher" method="post" style="display: none;">
+            <h2>教師注冊</h2>
+            <label for="AccountID">AccountID：</label>
+            <input type="text" id="AccountID" name="AccountID" required><br>
+
+            <label for="LastName">LastName：</label>
+            <input type="text" id="LastName" name="LastName" required><br>
+
+            <label for="FirstName">FirstName：</label>
+            <input type="text" id="FirstName" name="FirstName" required><br>
+
+            <label for="Sex">Sex：</label>
+            <input type="text" id="Sex" name="Sex" required><br>
+
+            <label for="HKId">HKID</label>
+            <input type="text" id="HKId" name="HKId" required><br>
+
+            <label for="Birthday">Birthday：</label>
+            <input type="text" id="Birthday" name="Birthday" required><br>
+
+            <label for="Adderss">Address：</label>
+            <input type="text" id="Adderss" name="Adderss" required><br>
+
+            <label for="PhoneNo">PhoneNo：</label>
+            <input type="text" id="PhoneNo" name="PhoneNo" required><br>
+
+            <label for="SpecialEducationalNeeds">SpecialEducationalNeeds：</label>
+            <input type="text" id="SpecialEducationalNeeds" name="SpecialEducationalNeeds" required><br>
+
+            <label for="Nationality">Nationality：</label>
+            <input type="text" id="Nationality" name="Nationality" required><br>
+
+
+            <button type="submit">提交</button>
+        </form>
+    </div>
+    <div class="sub-container">
+        <h1> 以xlsx大量注冊</h1>
+        <form action="/register/xlsx" method="post" enctype="multipart/form-data">
+            <input type="file" name="file">
+            <button type="submit">上傳</button>
+        </form>
+    </div>
+    <div class="sub-container">
+        test
+    </div>
+</div>
+<script>
+    function showStudentForm() {
+        document.getElementById("studentForm").style.display = "block";
+        document.getElementById("teacherForm").style.display = "none";
+    }
+
+    function showTeacherForm() {
+        document.getElementById("studentForm").style.display = "none";
+        document.getElementById("teacherForm").style.display = "block";
+    }
+
+    
+    // 水平滾輪
+    const container = document.querySelector('.container');
+    container.addEventListener('wheel', (event) => {
+        event.preventDefault();
+
+        container.scrollLeft += event.deltaY;
+    });
+</script>
+
+
+{% endblock %}

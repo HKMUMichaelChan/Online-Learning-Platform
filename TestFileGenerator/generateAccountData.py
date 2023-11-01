@@ -2,7 +2,7 @@ import pandas as pd
 import random
 from datetime import datetime
 
-# 生成学生列表数据
+# 產生學生列表數據
 students = [
     {
         'AccountID': '12345678',
@@ -31,21 +31,21 @@ students = [
     # 添加更多学生信息...
 ]
 
-# 创建 Excel 文件
+# 建立 Excel 文件
 excel_file = 'Online-Learning-Platform/tools/accountData.xlsx'
 writer = pd.ExcelWriter(excel_file)
 
-# 创建数据框
+# 建立資料框
 data = pd.DataFrame(students)
 
-# 调整列的顺序
+# 調整列的順序
 columns_order = ['AccountID', 'LastName', 'FirstName', 'HKID', 'Sex', 'Birthday', 'Address', 'PhoneNo', 'SpecialEducationalNeeds', 'Nationality']
 data = data[columns_order]
 
-# 将数据写入工作表
+# 將資料寫入工作表
 data.to_excel(writer, index=False)
 
-# 保存 Excel 文件
+# 儲存 Excel 文件
 writer._save()
 
-print("学生列表试算表已生成并保存。")
+print("學生清單試算表已產生並儲存。")

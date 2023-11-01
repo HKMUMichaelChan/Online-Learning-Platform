@@ -4,12 +4,12 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash
 
 def excel_to_json(file_path ):
-    # 读取Excel文件
+    # 讀取Excel文件
     df = pd.read_excel(file_path, sheet_name=0)
     
-    # 提取指定的两列数据
-    AccountIDs = df["AccountID"].tolist() # 用户名列
-    HKIds = df["HKID"].tolist()  # 密码列
+    # 提取指定的兩列數據
+    AccountIDs = df["AccountID"].tolist() # 用戶名列
+    HKIds = df["HKID"].tolist()  # 密碼列
     lastnames = df["LastName"].tolist()
     firstnames = df["FirstName"].tolist()
     sexs = df["Sex"].tolist()
@@ -20,7 +20,7 @@ def excel_to_json(file_path ):
     Nationalitys  = df["Nationality"].tolist()
   
 
-    # 创建JSON数据
+    # 建立JSON數據
     with open("Online-Learning-Platform/data/auth.json", 'r') as file:
         data  = json.load(file)
 
@@ -61,9 +61,9 @@ def excel_to_json(file_path ):
     
     return data
 
-# 示例使用
+# 範例使用
 if __name__ == "__main__":
-    file_path = "Online-Learning-Platform/tools/accountData.xlsx"  # Excel文件路径
+    file_path = "Online-Learning-Platform/tools/accountData.xlsx"  # Excel檔案路徑
 
     
     

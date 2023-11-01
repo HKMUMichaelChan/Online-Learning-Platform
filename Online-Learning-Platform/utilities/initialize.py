@@ -17,7 +17,7 @@ def initialize():
     data = {}
     for file_name in files:
         if not os.path.exists("Online-Learning-Platform/" + file_name):
-            # 文件不存在，生成文件
+            # 文件不存在，產生文件
             
             
             if file_name == files[0]:

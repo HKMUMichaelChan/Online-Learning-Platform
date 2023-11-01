@@ -9,7 +9,7 @@ from werkzeug.utils import secure_filename
 from utilities.tojpg import convert_png_to_jpg
 app = Flask(__name__)
 
-# 用于存储用户信息的字典
+# 系統亂數種子
 app.secret_key = 'your_secret_keya'
 
 def redirectPage(target, message):
@@ -21,7 +21,6 @@ def redirectPage(target, message):
         return render_template('transition.html', target="/login", message = "賬號已登出")
     else:
         return redirect(url_for('home'))
-    # transition(target,message)
     
 
 @app.route("/academicRecords")
@@ -29,11 +28,11 @@ def academicRecords():
     if 'token' in session:
         try:
             token = session['token']
-            # 验证令牌是否过期
+            # 驗證令牌是否過期
             payload = jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])
             if datetime.utcnow() > datetime.fromtimestamp(payload['exp']):
                 return redirectPage("/login", "令牌已過期，請重新登入！！")
-            #==============================
+            ###
             username = payload['username']
 
 
@@ -44,7 +43,7 @@ def academicRecords():
 
             data = [item for item in accountData if item["AccountID"] == session['username'] ][0]
             return render_template('academicRecords.html',accountData = data )
-
+            ###
         except jwt.ExpiredSignatureError:
             return redirectPage("/login", "令牌已過期，請重新登入！！")
         except jwt.InvalidTokenError:
@@ -62,7 +61,7 @@ def editInfo():
     if 'token' in session:
         try:
             token = session['token']
-            # 验证令牌是否过期
+            # 驗證令牌是否過期
             payload = jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])
             if datetime.utcnow() > datetime.fromtimestamp(payload['exp']):
                 return redirectPage("/login", "令牌已過期，請重新登入！！")
@@ -71,11 +70,11 @@ def editInfo():
 
 
 
-            ###
-            username = payload['username']
+
             data = [item for item in accountData if item["AccountID"] == session['username'] ][0]
 
             return render_template('home.html',accountData = data )
+            ###
         except jwt.ExpiredSignatureError:
             return redirectPage("/login", "令牌已過期，請重新登入！！")
         except jwt.InvalidTokenError:
@@ -91,13 +90,12 @@ def upload():
     if 'token' in session:
         try:
             token = session['token']
-            # 验证令牌是否过期
+            # 驗證令牌是否過期
             payload = jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])
             if datetime.utcnow() > datetime.fromtimestamp(payload['exp']):
                 return redirectPage("/login", "令牌已過期，請重新登入！！")
             
-            username = payload['username']
-            # 在这里进行受保护的操作
+            ###
             file = request.files['file']
             filename = secure_filename(file.filename)
             extension = filename.rsplit('.', 1)[1].lower()
@@ -118,11 +116,11 @@ def upload():
                         closeWindow();
                     </script>
                 ''')
-                # 文件是 JPG 类型
+                # 文件是 JPG 類型
             elif extension == 'png':
                     
                 convert_png_to_jpg(file, "Online-Learning-Platform/static/accountIcon/" + session['username'] + ".jpg")
-                # 文件是 PNG 类型
+                # 文件是 PNG 類型
                 return render_template_string('''
                     <script>
                         function closeWindow() {
@@ -134,13 +132,14 @@ def upload():
                     </script>
                 ''')
             else:
-                # 其他类型的文件
+                # 其他類型的文件
                 pass
 
-            # return f"欢迎回来，{session['username']}！"
+
             data = [item for item in accountData if item["AccountID"] == session['username'] ][0]
 
             return render_template('home.html',accountData = data )
+            ###
         except jwt.ExpiredSignatureError:
             return redirectPage("/login", "令牌已過期，請重新登入！！")
         except jwt.InvalidTokenError:
@@ -159,18 +158,18 @@ def home():
     if 'token' in session:
         token = session['token']
         try:
-            # 验证令牌是否过期
+            # 驗證令牌是否過期
             payload = jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])
             if datetime.utcnow() > datetime.fromtimestamp(payload['exp']):
                 return redirectPage("/login", "令牌已過期，請重新登入！！")
-            
-            # username = payload['username']
-            # 在这里进行受保护的操作
 
-            # return f"欢迎回来，{session['username']}！"
+            ###
+
+            
             data = [item for item in accountData if item["AccountID"] == session['username'] ][0]
 
             return render_template('home.html',accountData = data )
+            ###
         except jwt.ExpiredSignatureError:
             return redirectPage("/login", "令牌已過期，請重新登入！！")
         except jwt.InvalidTokenError:
@@ -186,14 +185,15 @@ def personal_info():
     if 'token' in session:
         token = session['token']
         try:
-            # 验证令牌是否过期
+            # 驗證令牌是否過期
             payload = jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])
             if datetime.utcnow() > datetime.fromtimestamp(payload['exp']):
                 return redirectPage("/login", "令牌已過期，請重新登入！！")
             
             username = payload['username']
-            # 在这里进行受保护的操作
-            # return f"欢迎回来，{session['username']}！"
+            ###
+
+            
             data = [item for item in accountData if item["AccountID"] == session['username'] ][0]
             if os.path.exists("Online-Learning-Platform/static/accountIcon/" + session['username'] + ".jpg"):
                 icon_path = "/static/accountIcon/" + session['username'] + ".jpg"
@@ -201,7 +201,7 @@ def personal_info():
                 icon_path = "/static/accountIcon/00000000.jpg"
 
             return render_template('personal-info.html',accountData = data , role = session['username'][0], icon_path = icon_path)
-        
+            ###
 
         except jwt.ExpiredSignatureError:
             return redirectPage("/login", "令牌已過期，請重新登入！！")
@@ -217,13 +217,12 @@ def index():
     if 'token' in session:
         token = session['token']
         try:
-            # 验证令牌是否过期
+            # 驗證令牌是否過期
             payload = jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])
             if datetime.utcnow() > datetime.fromtimestamp(payload['exp']):
                 return redirectPage("/login", "令牌已過期，請重新登入！！")
             
-            # username = payload['username']
-            # 在这里进行受保护的操作
+
 
             return redirect(url_for('home'))
         
@@ -244,11 +243,11 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        # 检查用户名是否存在
+        # 檢查使用者名稱是否存在
         if username not in users:
             return "该用户名不存在，请先注册！"
 
-        # 检查密码是否匹配
+        # 檢查密碼是否匹配
         for dat in data:
             if dat['username'] == username:
                 hash = dat['password']
@@ -257,7 +256,7 @@ def login():
             return "密码错误，请重新输入！"
 
         session['username'] = username
-        # 生成 JWT 令牌并设置过期时间为 30 分钟
+        # 產生 JWT 令牌並設定過期時間為 30 分鐘
         expiration_time = datetime.utcnow() + timedelta(minutes=30)
         payload = {
             'username': username,
@@ -265,7 +264,7 @@ def login():
         }
         token = jwt.encode(payload, app.config['SECRET_KEY'], algorithm='HS256')
 
-        session['token'] = token  # 将令牌存储在会话中
+        session['token'] = token  # 將令牌儲存在 cookies 的 session 中
         return redirect(url_for('home'))
     else:
         return render_template('login.html')
@@ -276,7 +275,7 @@ def logout():
     return redirectPage("/logout", None)
 
 if __name__ == "__main__":
-    # 检查系统是否已经初始化
+    # 檢查系統是否已經初始化
     initialize()
     data = jsonIO.load_data("Online-Learning-Platform/data/auth.json")
     accountData = jsonIO.load_data("Online-Learning-Platform/data/accountData.json")

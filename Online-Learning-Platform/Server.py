@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 import os
-from flask import Flask, render_template_string, request, render_template, redirect, url_for , session
+from flask import Flask, jsonify, render_template_string, request, render_template, redirect, url_for , session
 import jwt
 from werkzeug.security import check_password_hash
 import utilities.jsonIO as jsonIO
@@ -8,6 +8,9 @@ from utilities.initialize import initialize
 from werkzeug.utils import secure_filename
 from utilities.tojpg import convert_png_to_jpg
 from tools.register import excel_to_json, singelReg
+from urllib.parse import unquote
+from utilities.utilities import create_blank_file, crop_to_square
+import json
 app = Flask(__name__)
 
 # 系統亂數種子
@@ -22,10 +25,12 @@ def redirectPage(target, message):
         return render_template('transition.html', target="/login", message = "賬號已登出")
     elif target == "/adminTool":
         return render_template('transition.html', target="/adminTool", message = message)
+    elif target == "redirectBack":
+        return render_template('transition.html', target="redirectBack", message = message)
     else:
         return redirect(url_for('home'))
     
-def authVerify():
+def authVerify(permissionLevel):
     if 'token' in session:
         try:
             token = session['token']
@@ -33,6 +38,9 @@ def authVerify():
             payload = jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])
             if datetime.utcnow() > datetime.fromtimestamp(payload['exp']):
                 return redirectPage("/login", "令牌已過期，請重新登入！！")
+
+            if int(session['username'][0]) < permissionLevel:
+                return redirectPage("/login", "權限不足")
 
             return None #No Error
         except jwt.ExpiredSignatureError:
@@ -42,9 +50,25 @@ def authVerify():
     else:
         return redirectPage("/login", "未登入，請登入")  
 
+@app.route("/IDQuery", methods= ['POST'])
+def query_json():
+    if request.method == 'POST':
+        query = request.form.get('query')
+
+        # 这里替换为你的 JSON 文件路径
+
+        matches = []
+        matchedAccDatas = [item for item in accountData if item["AccountID"].startswith(query) ]
+        for matchedAccData in matchedAccDatas:
+
+            matches.append(matchedAccData['AccountID'])
+
+        return matches
+
+
 @app.route("/register/student", methods= ['POST'])
 def studentRegister():
-    authError = authVerify()
+    authError = authVerify(3)
     if authError is not None:
         return authError
     else:
@@ -70,7 +94,7 @@ def studentRegister():
 
 @app.route("/register/teacher", methods= ['POST'])
 def teacherRegister():
-    authError = authVerify()
+    authError = authVerify(3)
     if authError is not None:
         return authError
     else:
@@ -95,7 +119,7 @@ def teacherRegister():
 
 @app.route("/register/xlsx", methods= ['POST'])
 def xlsxRegister():
-    authError = authVerify()
+    authError = authVerify(3)
     if authError is not None:
         return authError
     else:
@@ -109,18 +133,26 @@ def xlsxRegister():
             return redirectPage("/adminTool", "Account ID 已重複")
 @app.route("/adminTool")
 def adminTool():
-    authError = authVerify()
+    authError = authVerify(3)
     if authError is not None:
         return authError
     else:
             data = [item for item in accountData if item["AccountID"] == session['username'] ][0]
-            return render_template('adminTool.html',accountData = data )
 
 
+            return render_template('adminTool.html',accountData = data , queryData = accountData)
+
+@app.route("/GetAccountData")
+def GetAccountData():
+    authError = authVerify(3)
+    if authError is not None:
+        return authError
+    else:
+        return jsonify(accountData)
 
 @app.route("/academicRecords")
 def academicRecords():
-    authError = authVerify()
+    authError = authVerify(1)
     if authError is not None:
         return authError
     else:
@@ -128,21 +160,75 @@ def academicRecords():
             return render_template('academicRecords.html',accountData = data )
 
 
-@app.route("/editInfo", methods= ['POST'])
+@app.route("/editInfo/", methods= ['POST'])
 def editInfo():
-    authError = authVerify()
+    authError = authVerify(1)
     if authError is not None:
         return authError
     else:
+            global accountData
             data = [item for item in accountData if item["AccountID"] == session['username'] ][0]
 
+            # decoded_text = unquote(request.get_data())
+
+            # print(decoded_text)
+            PostData :dict= request.json
+            
+
+                
+            accountData = jsonIO.load_data("Online-Learning-Platform/data/accountData.json")
+            accountID = session['username']
+            for item in accountData:
+                if item["AccountID"] == accountID:
+                    print("acc found")
+                    # 在匹配的字典中进行更新
+                    for key in PostData.keys():
+                        for orginalKey in item.keys():
+                            if key == orginalKey:
+                                print("key found")
+                                item[orginalKey] = PostData[key]
+            jsonIO.save_data(accountData, "Online-Learning-Platform/data/accountData.json")
+
+
             return render_template('home.html',accountData = data )
-            ###
+
+@app.route("/editInfo/<AccountID>", methods= ['POST'])
+def editInfo_adminVer(AccountID):
+    authError = authVerify(3)
+    if authError is not None:
+        return authError
+    else:
+            global accountData
+            data = [item for item in accountData if item["AccountID"] == AccountID ][0]
+
+            # decoded_text = unquote(request.get_data())
+
+            # print(decoded_text)
+            PostData :dict= request.json
+            
+
+                
+            accountData = jsonIO.load_data("Online-Learning-Platform/data/accountData.json")
+
+            for item in accountData:
+                if item["AccountID"] == AccountID:
+                    print("acc found")
+                    # 在匹配的字典中进行更新
+                    for key in PostData.keys():
+                        for orginalKey in item.keys():
+                            if key == orginalKey:
+                                print("key found")
+                                item[orginalKey] = PostData[key]
+            jsonIO.save_data(accountData, "Online-Learning-Platform/data/accountData.json")
 
 
-@app.route("/upload", methods=['POST'])
-def upload():
-    authError = authVerify()
+            return render_template('home.html',accountData = data )
+
+@app.route("/upload/<AccountID>", methods=['POST'])
+def upload_adminVer(AccountID):
+    authError = authVerify(3)
+
+
     if authError is not None:
         return authError
     else:
@@ -150,14 +236,8 @@ def upload():
             file = request.files['file']
             filename = secure_filename(file.filename)
             extension = filename.rsplit('.', 1)[1].lower()
-            if not os.path.exists("Online-Learning-Platform/static/accountIcon/" + session['username'] + ".jpg"):
-                with open("Online-Learning-Platform/static/accountIcon/" + session['username'] + ".jpg",'w') as file:
-                    pass
-            if extension == 'jpg' or extension == 'jpeg':
-
-                    
-                file.save("Online-Learning-Platform/static/accountIcon/" + session['username'] + ".jpg")
-                return render_template_string('''
+            create_blank_file("Online-Learning-Platform/static/accountIcon/" + AccountID + ".jpg")
+            closeScript = '''
                     <script>
                         function closeWindow() {
                             window.opener.location.reload()
@@ -166,22 +246,70 @@ def upload():
                         }
                         closeWindow();
                     </script>
-                ''')
+                '''
+            if extension == 'jpg' or extension == 'jpeg':
+
+                
+                file.save("Online-Learning-Platform/static/accountIcon/" + AccountID + ".jpg")
+
+                crop_to_square("Online-Learning-Platform/static/accountIcon/" + AccountID + ".jpg")
+
+                return render_template_string(closeScript)
+                # 文件是 JPG 類型
+            elif extension == 'png':
+                    
+                convert_png_to_jpg(file, "Online-Learning-Platform/static/accountIcon/" + AccountID + ".jpg")
+                crop_to_square("Online-Learning-Platform/static/accountIcon/" + AccountID + ".jpg")
+                # 文件是 PNG 類型
+                return render_template_string(closeScript)
+            else:
+                # 其他類型的文件
+                pass
+
+
+            data = [item for item in accountData if item["AccountID"] == AccountID ][0]
+
+            return render_template('home.html',accountData = data )
+            ###
+
+@app.route("/upload", methods=['POST'])
+def upload():
+    authError = authVerify(1)
+
+
+    if authError is not None:
+        return authError
+    else:
+            ###
+            file = request.files['file']
+            filename = secure_filename(file.filename)
+            extension = filename.rsplit('.', 1)[1].lower()
+            create_blank_file("Online-Learning-Platform/static/accountIcon/" + session['username'] + ".jpg")
+            closeScript = '''
+                    <script>
+                        function closeWindow() {
+                            window.opener.location.reload()
+                            window.close();
+                            
+                        }
+                        closeWindow();
+                    </script>
+                '''
+            if extension == 'jpg' or extension == 'jpeg':
+
+                
+                file.save("Online-Learning-Platform/static/accountIcon/" + session['username'] + ".jpg")
+
+                crop_to_square("Online-Learning-Platform/static/accountIcon/" + session['username'] + ".jpg")
+
+                return render_template_string(closeScript)
                 # 文件是 JPG 類型
             elif extension == 'png':
                     
                 convert_png_to_jpg(file, "Online-Learning-Platform/static/accountIcon/" + session['username'] + ".jpg")
+                crop_to_square("Online-Learning-Platform/static/accountIcon/" + session['username'] + ".jpg")
                 # 文件是 PNG 類型
-                return render_template_string('''
-                    <script>
-                        function closeWindow() {
-                            window.opener.location.reload()
-                            window.close();
-                            
-                        }
-                        closeWindow();
-                    </script>
-                ''')
+                return render_template_string(closeScript)
             else:
                 # 其他類型的文件
                 pass
@@ -198,7 +326,7 @@ def upload():
 
 @app.route("/home")
 def home():
-    authError = authVerify()
+    authError = authVerify(1)
     if authError is not None:
         return authError
     else:
@@ -209,8 +337,9 @@ def home():
 
 
 @app.route("/personal-info")
+@app.route("/personal-info/")
 def personal_info():
-    authError = authVerify()
+    authError = authVerify(1)
     if authError is not None:
         return authError
     else:
@@ -221,16 +350,28 @@ def personal_info():
         if os.path.exists("Online-Learning-Platform/static/accountIcon/" + session['username'] + ".jpg"):
             icon_path = "/static/accountIcon/" + session['username'] + ".jpg"
         else:
-            icon_path = "/static/accountIcon/00000000.jpg"
-
-        return render_template('personal-info.html',accountData = data , role = session['username'][0], icon_path = icon_path)
+            icon_path = "/static/accountIcon/default.jpg"
+        return render_template('personal-info.html',accountData = data , AccRole = session['username'][0], role = session['username'][0], icon_path = icon_path)
         ###
 
+@app.route("/personal-info/<accountID>")
+def personal_info_adminVer(accountID):
+    authError = authVerify(3)
+    if authError is not None:
+        return authError
+    else:
+            ###
+            data = [item for item in accountData if item["AccountID"] == accountID ][0]
+            if os.path.exists("Online-Learning-Platform/static/accountIcon/" + accountID + ".jpg"):
+                icon_path = "/static/accountIcon/" + accountID + ".jpg"
+            else:
+                icon_path = "/static/accountIcon/default.jpg"
 
+            return render_template('personal-info.html',accountData = data , AccRole = accountID[0], role = "3", icon_path = icon_path)
 
 @app.route("/")
 def index():
-    authError = authVerify()
+    authError = authVerify(3)
     if authError is not None:
         return authError
     else:

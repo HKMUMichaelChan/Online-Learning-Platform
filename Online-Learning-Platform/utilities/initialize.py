@@ -28,17 +28,17 @@ def initialize():
                     data = []
                     
                     data.append({
-                        'username': '00000000',
+                        'username': '30000000',
                         'password': str(hashed_password)
                     })
-                    print(f"密碼已設定，管理員用戶名為(8個0)'00000000'")
+                    print(f"密碼已設定，管理員用戶名為(\"3\" + 7個0)'30000000'")
 
                     
                     json.dump(data, file)
             elif file_name == files[1]:
                 accountData = []
                 accountData.append({
-                        'AccountID' : '00000000',
+                        'AccountID' : '30000000',
                         'LastName' : ' ',
                         'FirstName' : 'Administrator',
                         'HKID' : 'A123456(7)',

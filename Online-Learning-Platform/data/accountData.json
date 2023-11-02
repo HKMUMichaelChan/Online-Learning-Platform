@@ -1,8 +1,9 @@
 [
     {
-        "AccountID": "00000000",
+        "AccountID": "30000000",
         "LastName": " ",
         "FirstName": "Administrator",
+        "HKID": "A123456(7)",
         "Sex": "/",
         "Birthday": "/",
         "Address": "/",
@@ -13,50 +14,14 @@
     {
         "AccountID": "123",
         "LastName": "123",
-        "FirstName": "4",
-        "Sex": "qw",
-        "HKID": "qqq",
-        "Birthday": "qw",
+        "FirstName": "424",
+        "Sex": "wqeq",
+        "HKID": "12425",
+        "Birthday": "qwe",
         "Address": null,
-        "PhoneNo": "w",
-        "SpecialEducationalNeeds": "w",
-        "Nationality": "w"
-    },
-    {
-        "AccountID": "123",
-        "LastName": "123",
-        "FirstName": "4",
-        "Sex": "qw",
-        "HKID": "qqq",
-        "Birthday": "qw",
-        "Address": null,
-        "PhoneNo": "w",
-        "SpecialEducationalNeeds": "w",
-        "Nationality": "w"
-    },
-    {
-        "AccountID": "123",
-        "LastName": "123",
-        "FirstName": "4",
-        "Sex": "qw",
-        "HKID": "qqq",
-        "Birthday": "qw",
-        "Address": null,
-        "PhoneNo": "w",
-        "SpecialEducationalNeeds": "w",
-        "Nationality": "w"
-    },
-    {
-        "AccountID": "123",
-        "LastName": "123",
-        "FirstName": "4",
-        "Sex": "qw",
-        "HKID": "qqq",
-        "Birthday": "qw",
-        "Address": null,
-        "PhoneNo": "w",
-        "SpecialEducationalNeeds": "w",
-        "Nationality": "w"
+        "PhoneNo": "512",
+        "SpecialEducationalNeeds": "214",
+        "Nationality": "tewt"
     },
     {
         "AccountID": "12345678",
@@ -80,6 +45,18 @@
         "Address": "456 Elm St, Hong Kong",
         "PhoneNo": 98765432,
         "SpecialEducationalNeeds": "need1, \n need2",
+        "Nationality": "Hong Kong"
+    },
+    {
+        "AccountID": "20000000",
+        "LastName": "CHAN",
+        "FirstName": "AAAA BBBB",
+        "Sex": "F",
+        "HKID": "A123456(7)",
+        "Birthday": "tttt",
+        "Address": null,
+        "PhoneNo": "45667894",
+        "SpecialEducationalNeeds": "/",
         "Nationality": "Hong Kong"
     }
 ]

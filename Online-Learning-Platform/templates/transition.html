@@ -10,7 +10,13 @@
      <script>
         setTimeout(function() {
             var variable = "{{target}}";
-            window.location.href = variable;
+            if (variable == "redirectBack"){
+                window.history.back();
+            }
+            else{
+                window.location.href = variable;
+            }
+
         }, 3000);
     </script> 
 </head>

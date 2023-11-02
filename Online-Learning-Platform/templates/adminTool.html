@@ -33,7 +33,7 @@
 
             <label for="HKId">HKID</label>
             <input type="text" id="HKId" name="HKId" required><br>
-            
+
             <label for="Birthday">Birthday：</label>
             <input type="text" id="Birthday" name="Birthday" required><br>
 
@@ -98,7 +98,13 @@
         </form>
     </div>
     <div class="sub-container">
-        test
+        <h1> 編輯所有賬號資料</h1>
+            <form onsubmit="event.preventDefault(); searchJSON();">
+              <label for="searchTerm">以AccountID搜索：</label>
+              <input type="text" id="searchTerm" name="searchTerm" required>
+              <button type="submit">查询</button>
+            </form>
+            <div id="resultsContainer"></div>
     </div>
 </div>
 <script>
@@ -120,6 +126,79 @@
 
         container.scrollLeft += event.deltaY;
     });
+    function edit(AccountID) {
+        console.log(AccountID);
+        fetch('/personal-info/' + AccountID)
+        }
+    function createRedirectButton(text, url) {
+        var button = document.createElement("button");
+        button.textContent = text;
+
+        button.addEventListener("click", function() {
+            window.location.href = url; // 设置独立的重定向地址
+        });
+
+        return button;
+        }
+    function searchJSON() {
+      var searchTerm = document.getElementById("searchTerm").value.toLowerCase();
+
+      fetch('/GetAccountData')
+        .then(response => response.json())
+        .then(jsonData => {
+            // jsonData = JSON.stringify(jsonData);
+            
+        //   document.getElementById("json-data").innerText = jsonData;
+            
+            var results = [];
+            var resultsID = [];
+            for (var i = 0; i < jsonData.length; i++) {
+                var entry = jsonData[i];
+                console.log(entry['AccountID']);
+                console.log(entry);
+                var accountID = entry['AccountID'].toString();
+                
+                if (accountID.includes(searchTerm)) {
+
+                    results.push(entry['AccountID'].toString() + " | " + entry['LastName'].toString() + " " + entry['FirstName'].toString());
+                    resultsID.push(entry['AccountID'].toString())
+                }
+            }
+
+            var resultsContainer = document.getElementById("resultsContainer");
+            resultsContainer.innerHTML = "";
+            if (results.length > 0) {
+                for (var j = 0; j < results.length; j++) {
+                var result = results[j];
+                var resultID = resultsID[j];
+                var resultContainer = document.createElement("div");
+                resultContainer.id = "resultContainer"
+
+                var resultElement = document.createElement("p");
+                
+
+                resultElement.textContent = " " + (j + 1) + ". " + result;
+                var resultButton = createRedirectButton("編輯", "/personal-info/" + resultID)
+
+                
+
+                resultContainer.appendChild(resultElement);
+                resultContainer.appendChild(resultButton);
+                resultsContainer.appendChild(resultContainer);
+                }
+            } else {
+                var noResultElement = document.createElement("p");
+                noResultElement.textContent = "No results found.";
+                resultsContainer.appendChild(noResultElement);
+            }
+        })
+        .catch(error => {
+          console.error("加载 JSON 文件时出错:", error);
+        });
+
+
+
+    }
 </script>
 
 

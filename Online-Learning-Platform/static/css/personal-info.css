@@ -15,14 +15,23 @@ table {
   img{
     height: 240px;
     max-height: 240px;
+    overflow: hidden;
     
   }
   th {
     background-color: #f2f2f2;
   }
+
+
+  .title{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    min-width: 100%;
+    width: 100%;
+  }
+
   
-
-
   .container{
     justify-content: start;
   }
@@ -34,7 +43,21 @@ table {
     height: 240px;
     width: 240px;
   }
-  table button{
+  table button {
+    display: flex;
+    align-items: center;
+    font-weight:bold;
+    letter-spacing: 4px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 10px 40px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    height: 40px  ;
+  }
+  table .buttonTD button{
     display: flex;
     align-items: center;
     font-weight:bold;

@@ -6,10 +6,9 @@ from werkzeug.security import check_password_hash
 import utilities.jsonIO as jsonIO
 from utilities.initialize import initialize
 from werkzeug.utils import secure_filename
-from utilities.tojpg import convert_png_to_jpg
 from tools.register import excel_to_json, singelReg
 from urllib.parse import unquote
-from utilities.utilities import create_blank_file, crop_to_square
+from utilities.utilities import *
 import json
 app = Flask(__name__)
 
@@ -149,6 +148,17 @@ def GetAccountData():
         return authError
     else:
         return jsonify(accountData)
+
+@app.route("/getAcademicRecordsData")
+def getAcademicRecordsData():
+    authError = authVerify(3)
+    if authError is not None:
+        return authError
+    else:
+        academicRecordsData = jsonIO.load_data("data/academicRecordsData.json")
+        return jsonify(academicRecordsData)
+    
+
 
 @app.route("/academicRecords")
 def academicRecords():

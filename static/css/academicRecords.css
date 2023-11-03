@@ -1,26 +1,38 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-}
+  }
 
-h1 {
+  h1 {
     text-align: center;
-    margin-bottom: 20px;
-}
+  }
 
-.semester {
-    margin-bottom: 10px;
-}
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
 
-.subject {
-    margin-bottom: 5px;
-}
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
 
-.subject-header {
+  th {
+    background-color: #f2f2f2;
     font-weight: bold;
-}
+  }
 
-.grade {
-    margin-left: 20px;
-}
+  .date-heading {
+    margin-top: 40px;
+    font-size: 20px;
+  }
+
+  .container{
+    display: flex;
+    flex-direction: column;
+    justify-content: initial;
+  }
+  .sub-container{
+    width: 100%;
+  }

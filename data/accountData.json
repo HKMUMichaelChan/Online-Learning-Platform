@@ -9,54 +9,19 @@
         "Address": "/",
         "PhoneNo": "/",
         "SpecialEducationalNeeds": "/",
-        "Nationality": "/"
-    },
-    {
-        "AccountID": "123",
-        "LastName": "123",
-        "FirstName": "424",
-        "Sex": "wqeq",
-        "HKID": "12425",
-        "Birthday": "qwe",
-        "Address": null,
-        "PhoneNo": "512",
-        "SpecialEducationalNeeds": "214",
-        "Nationality": "tewt"
-    },
-    {
-        "AccountID": "12345678",
-        "LastName": "Smith",
-        "FirstName": "John",
-        "Sex": "Male",
-        "HKID": "A123456(7)",
-        "Birthday": "1970-01-01 08:00:38.482000",
-        "Address": "123 Main St, Hong Kong",
-        "PhoneNo": 12345678,
-        "SpecialEducationalNeeds": "-",
-        "Nationality": "Hong Kong"
-    },
-    {
-        "AccountID": "12345679",
-        "LastName": "Johnson",
-        "FirstName": "Emma",
-        "Sex": "Female",
-        "HKID": "A123456(7)",
-        "Birthday": "1970-01-01 08:00:38.944000",
-        "Address": "456 Elm St, Hong Kong",
-        "PhoneNo": 98765432,
-        "SpecialEducationalNeeds": "need1, \n need2",
-        "Nationality": "Hong Kong"
-    },
-    {
-        "AccountID": "20000000",
-        "LastName": "CHAN",
-        "FirstName": "AAAA BBBB",
-        "Sex": "F",
-        "HKID": "A123456(7)",
-        "Birthday": "tttt",
-        "Address": null,
-        "PhoneNo": "45667894",
-        "SpecialEducationalNeeds": "/",
-        "Nationality": "Hong Kong"
+        "Nationality": "/",
+        "Email": "test@email.com",
+        "study": {
+            "2023-2": [
+                "course1",
+                "course2"
+            ]
+        },
+        "teache": {
+            "2023-2": [
+                "course1",
+                "course2"
+            ]
+        }
     }
 ]

@@ -11,7 +11,7 @@ def initialize():
     files = [
         "data/auth.json",
         "data/accountData.json"
-
+        "data/academicRecordsData.json"
     ]
 
     data = {}
@@ -47,10 +47,35 @@ def initialize():
                         'Address' : '/',
                         'PhoneNo' : '/',
                         'SpecialEducationalNeeds' : '/',
-                        'Nationality' : '/'
+                        'Nationality' : '/',
+                        "Email": "test@email.com",
+                        "study":
+                            {
+                                "2023-2":[
+                                    "course1",
+                                    "course2"
+                                ]
+                            }
+
+                        ,
+                        "teache":
+                            {
+                                "2023-2":[
+                                    "course1",
+                                    "course2"
+                                ]
+                            }
+                        
                 })
-                with open("Online-Learning-Platform/data/accountData.json", 'w') as file:
+                with open("data/accountData.json", 'w') as file:
                     json.dump(accountData, file, indent=4)
+
+            elif file_name == files[1]:
+                academicRecordsData = []
+
+                with open("data/academicRecordsData.json", 'w') as file:
+                    json.dump(academicRecordsData, file, indent=4)
+
         else:
             print(f"文件 '{file_name}' 已存在。")
 

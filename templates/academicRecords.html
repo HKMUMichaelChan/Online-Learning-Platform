@@ -1,39 +1,78 @@
 {% extends 'base.html' %}
 
 {% block MainContent %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='/css/academicRecords.css.css') }}">
-
-
-<h1>My Academic Records</h1>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='/css/academicRecords.css') }}">
 
 
 
 
 
 
-<div class="semester">
-    <h2>Semester 1</h2>
-    <div class="subject">
-        <h3 class="subject-header">Math</h3>
-        <p class="grade">Grade: 90</p>
-    </div>
-    <div class="subject">
-        <h3 class="subject-header">Science</h3>
-        <p class="grade">Grade: 85</p>
-    </div>
+
+
+
+<div class="container">
+    <h1>My Academic Records</h1>
+    <h1>成绩单</h1>
+    <table class="sub-container">
+        <tr>
+            <th>學期</th><th>課程代碼</th><th>成績</th>
+        </tr>
+        <tr>
+    
+        </tr>
+    </table>
+    
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $.getJSON("/getAcademicRecordsData", function(data) {
+      var grades = data[0].date;
+      var lastVardate;
+      // 遍历日期并创建相应的表格
+      for (var date in grades) {
 
-<div class="semester">
-    <h2>Semester 2</h2>
-    <div class="subject">
-        <h3 class="subject-header">English</h3>
-        <p class="grade">Grade: 92</p>
-    </div>
-    <div class="subject">
-        <h3 class="subject-header">History</h3>
-        <p class="grade">Grade: 88</p>
-    </div>
-</div>
+        if (grades.hasOwnProperty(date)) {
+
+
+
+            var courseGrades = grades[date];
+          // 遍历特定日期的课程成绩并添加到表格中
+          courseGrades.forEach(function(grade) {
+            if (lastVardate != date){
+                
+
+                var [year, semester] = date.split('-');
+                // 创建日期标题
+                var dateHeading = $("<h2></h2>").text(year + " " + semester);
+
+                var tdContainer = $("<td rowspan=" + Object.keys(courseGrades).length +  "></td>");
+                var trContainer = $("<tr></tr>");
+
+                tdContainer.append(dateHeading);
+                trContainer.append(tdContainer)
+
+
+                trContainer.append($("<td></td>").text(grade.code));
+                trContainer.append($("<td></td>").text(grade.Grade));
+                $(".sub-container").append(trContainer);
+            }
+            else{
+                var trContainer = $("<tr></tr>");
+                trContainer.append($("<td></td>").text(grade.code));
+                trContainer.append($("<td></td>").text(grade.Grade));
+                $(".sub-container").append(trContainer);
+            }
+            lastVardate = date;
+
+          });
+          
+        }
+      }
+    });
+  });
+</script>
 
 
 

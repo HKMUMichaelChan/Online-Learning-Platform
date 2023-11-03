@@ -156,8 +156,8 @@
             let HKIDText = document.querySelector('#HKIDText');
             let HKIDfield = document.querySelector('#HKIDfield');
 
-            let AddressesText = document.querySelector('#AddressesText');
-            let Addressesfield = document.querySelector('#Addressesfield');
+            let AddressesText = document.querySelector('#AddressText');
+            let Addressesfield = document.querySelector('#Addressfield');
 
             let PhoneNoText = document.querySelector('#PhoneNoText');
             let PhoneNofield = document.querySelector('#PhoneNofield');
@@ -176,6 +176,35 @@
               for (let inputElement of inputElements) {
                 inputElement.style.display = 'block';
               }
+              if (LastNamefield == null){
+                LastNameText.style.display = 'block';
+                }
+              if (FirstNamefield == null){
+                FirstNameText.style.display = 'block';
+              }
+              if (PhoneNofield == null){
+                PhoneNoText.style.display = 'block';
+              }
+              if (Sexfield == null){
+                SexText.style.display = 'block';
+              }
+              if (HKIDfield == null){
+                HKIDText.style.display = 'block';
+              }
+              if (Addressesfield == null){
+                AddressesText.style.display = 'block';
+              }
+              if (PhoneNofield == null){
+                PhoneNoTex.style.display = 'block';
+              }
+              if (SpecialEducationalNeedsfield == null){
+               SpecialEducationalNeedsText.style.display = 'block';
+              }
+              if (Nationalityfield == null){
+               NationalityText.style.display = 'block';
+              }
+
+
                 editButton.style.display = 'none';
                 cancelButton.style.display = 'inline-block';
                 submitButton.style.display = 'inline-block';

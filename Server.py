@@ -84,8 +84,8 @@ def studentRegister():
                   request.form.get('Nationality')
                 ):
             global auth, accountData
-            auth = jsonIO.load_data("Online-Learning-Platform/data/auth.json")
-            accountData = jsonIO.load_data("Online-Learning-Platform/data/accountData.json")
+            auth = jsonIO.load_data("data/auth.json")
+            accountData = jsonIO.load_data("data/accountData.json")
             return redirectPage("/adminTool", f"學生 {request.form.get('LastName')}{request.form.get('FirstName')}({request.form.get('AccountID')}) 注冊成功")
         else:
             return redirectPage("/adminTool", f"資料不正確")
@@ -110,8 +110,8 @@ def teacherRegister():
                   request.form.get('Nationality')
                 ):
             global auth, accountData
-            auth = jsonIO.load_data("Online-Learning-Platform/data/auth.json")
-            accountData = jsonIO.load_data("Online-Learning-Platform/data/accountData.json")
+            auth = jsonIO.load_data("data/auth.json")
+            accountData = jsonIO.load_data("data/accountData.json")
             return redirectPage("/adminTool", f"教師 {request.form.get('LastName')}{request.form.get('FirstName')}({request.form.get('AccountID')}) 注冊成功")
         else:
             return redirectPage("/adminTool", "Account ID 已重複")
@@ -126,8 +126,8 @@ def xlsxRegister():
         file = request.files['file']
         if excel_to_json(file):
             global auth, accountData
-            auth = jsonIO.load_data("Online-Learning-Platform/data/auth.json")
-            accountData = jsonIO.load_data("Online-Learning-Platform/data/accountData.json")
+            auth = jsonIO.load_data("data/auth.json")
+            accountData = jsonIO.load_data("data/accountData.json")
             return redirectPage("/adminTool", f"注冊成功")
         else:
             return redirectPage("/adminTool", "Account ID 已重複")
@@ -176,7 +176,7 @@ def editInfo():
             
 
                 
-            accountData = jsonIO.load_data("Online-Learning-Platform/data/accountData.json")
+            accountData = jsonIO.load_data("data/accountData.json")
             accountID = session['username']
             for item in accountData:
                 if item["AccountID"] == accountID:
@@ -187,7 +187,7 @@ def editInfo():
                             if key == orginalKey:
                                 print("key found")
                                 item[orginalKey] = PostData[key]
-            jsonIO.save_data(accountData, "Online-Learning-Platform/data/accountData.json")
+            jsonIO.save_data(accountData, "data/accountData.json")
 
 
             return render_template('home.html',accountData = data )
@@ -208,7 +208,7 @@ def editInfo_adminVer(AccountID):
             
 
                 
-            accountData = jsonIO.load_data("Online-Learning-Platform/data/accountData.json")
+            accountData = jsonIO.load_data("data/accountData.json")
 
             for item in accountData:
                 if item["AccountID"] == AccountID:
@@ -219,7 +219,7 @@ def editInfo_adminVer(AccountID):
                             if key == orginalKey:
                                 print("key found")
                                 item[orginalKey] = PostData[key]
-            jsonIO.save_data(accountData, "Online-Learning-Platform/data/accountData.json")
+            jsonIO.save_data(accountData, "data/accountData.json")
 
 
             return render_template('home.html',accountData = data )
@@ -236,7 +236,7 @@ def upload_adminVer(AccountID):
             file = request.files['file']
             filename = secure_filename(file.filename)
             extension = filename.rsplit('.', 1)[1].lower()
-            create_blank_file("Online-Learning-Platform/static/accountIcon/" + AccountID + ".jpg")
+            create_blank_file("static/accountIcon/" + AccountID + ".jpg")
             closeScript = '''
                     <script>
                         function closeWindow() {
@@ -250,16 +250,16 @@ def upload_adminVer(AccountID):
             if extension == 'jpg' or extension == 'jpeg':
 
                 
-                file.save("Online-Learning-Platform/static/accountIcon/" + AccountID + ".jpg")
+                file.save("static/accountIcon/" + AccountID + ".jpg")
 
-                crop_to_square("Online-Learning-Platform/static/accountIcon/" + AccountID + ".jpg")
+                crop_to_square("static/accountIcon/" + AccountID + ".jpg")
 
                 return render_template_string(closeScript)
                 # 文件是 JPG 類型
             elif extension == 'png':
                     
-                convert_png_to_jpg(file, "Online-Learning-Platform/static/accountIcon/" + AccountID + ".jpg")
-                crop_to_square("Online-Learning-Platform/static/accountIcon/" + AccountID + ".jpg")
+                convert_png_to_jpg(file, "static/accountIcon/" + AccountID + ".jpg")
+                crop_to_square("static/accountIcon/" + AccountID + ".jpg")
                 # 文件是 PNG 類型
                 return render_template_string(closeScript)
             else:
@@ -284,7 +284,7 @@ def upload():
             file = request.files['file']
             filename = secure_filename(file.filename)
             extension = filename.rsplit('.', 1)[1].lower()
-            create_blank_file("Online-Learning-Platform/static/accountIcon/" + session['username'] + ".jpg")
+            create_blank_file("static/accountIcon/" + session['username'] + ".jpg")
             closeScript = '''
                     <script>
                         function closeWindow() {
@@ -298,16 +298,16 @@ def upload():
             if extension == 'jpg' or extension == 'jpeg':
 
                 
-                file.save("Online-Learning-Platform/static/accountIcon/" + session['username'] + ".jpg")
+                file.save("static/accountIcon/" + session['username'] + ".jpg")
 
-                crop_to_square("Online-Learning-Platform/static/accountIcon/" + session['username'] + ".jpg")
+                crop_to_square("static/accountIcon/" + session['username'] + ".jpg")
 
                 return render_template_string(closeScript)
                 # 文件是 JPG 類型
             elif extension == 'png':
                     
-                convert_png_to_jpg(file, "Online-Learning-Platform/static/accountIcon/" + session['username'] + ".jpg")
-                crop_to_square("Online-Learning-Platform/static/accountIcon/" + session['username'] + ".jpg")
+                convert_png_to_jpg(file, "static/accountIcon/" + session['username'] + ".jpg")
+                crop_to_square("static/accountIcon/" + session['username'] + ".jpg")
                 # 文件是 PNG 類型
                 return render_template_string(closeScript)
             else:
@@ -347,7 +347,7 @@ def personal_info():
 
             
         data = [item for item in accountData if item["AccountID"] == session['username'] ][0]
-        if os.path.exists("Online-Learning-Platform/static/accountIcon/" + session['username'] + ".jpg"):
+        if os.path.exists("static/accountIcon/" + session['username'] + ".jpg"):
             icon_path = "/static/accountIcon/" + session['username'] + ".jpg"
         else:
             icon_path = "/static/accountIcon/default.jpg"
@@ -362,7 +362,7 @@ def personal_info_adminVer(accountID):
     else:
             ###
             data = [item for item in accountData if item["AccountID"] == accountID ][0]
-            if os.path.exists("Online-Learning-Platform/static/accountIcon/" + accountID + ".jpg"):
+            if os.path.exists("static/accountIcon/" + accountID + ".jpg"):
                 icon_path = "/static/accountIcon/" + accountID + ".jpg"
             else:
                 icon_path = "/static/accountIcon/default.jpg"
@@ -422,8 +422,8 @@ if __name__ == "__main__":
     # 檢查系統是否已經初始化
     initialize()
     global auth, accountData
-    auth = jsonIO.load_data("Online-Learning-Platform/data/auth.json")
-    accountData = jsonIO.load_data("Online-Learning-Platform/data/accountData.json")
+    auth = jsonIO.load_data("data/auth.json")
+    accountData = jsonIO.load_data("data/accountData.json")
     users = []
     
     for dat in auth:

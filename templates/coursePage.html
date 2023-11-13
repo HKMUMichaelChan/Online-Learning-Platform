@@ -1,0 +1,224 @@
+{% extends 'base.html' %}
+
+{% block MainContent %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='/css/coursePage.css') }}">
+
+
+    <div class="container">
+        <h1>{{PreloadData['courseCode']}} {{PreloadData['courseName']}}</h1>
+        <hr>
+        <div class="horizontal">
+            <h2>announcements</h2>
+            {% if accountData['AccountID'][0] == "3" or accountData['AccountID'][0] == "2" %}
+                <button class="lgBtn" onclick="createAnnouncementForm()">發佈新資源</button>
+            {% endif %}
+        </div>
+
+        <div class = "announcements"> </div>
+        {% for announcement in PreloadData['announcements'] %}
+            <div class = "sub-container">
+                <div class="horizontal">
+                <h3>{{ announcement['title'] }}</h3>
+                    {% if accountData['AccountID'][0] == "3" or accountData['AccountID'][0] == "2" %}
+                        <button onclick="removeAnnouncment('{{loop.index0}}')">移除</button>
+                    {% endif %}
+                </div>
+                <hr>
+                <pre>{{ announcement['content'] }}</pre>
+            </div> 
+        {% endfor %}
+        {% if PreloadData['announcements'] == [] %}
+        <div class = "sub-container">
+            <h3>No announcement for now</h3>
+        </div>
+        {% endif %}
+
+        <div class="horizontal">
+        <h2>Resourses</h2>
+            {% if accountData['AccountID'][0] == "3" or accountData['AccountID'][0] == "2" %}
+                <button class="lgBtn" onclick="createResourseForm()">發佈新資源</button>
+            {% endif %}
+        </div>
+        <div class = "resourses"> </div>
+        {% for resourse in PreloadData['resourses'] %}
+            <div class = "sub-container">
+                <div class="horizontal">
+                <h3>{{ resourse['title'] }}</h3>
+                    {% if accountData['AccountID'][0] == "3" or accountData['AccountID'][0] == "2" %}
+                        <button onclick="removeResourse('{{loop.index0}}')">移除</button>
+                    {% endif %}
+                </div>
+                <hr>
+                <p>{{ resourse['content'] }}</p>
+                {% for file in resourse['files'] %}
+                    <a href="{{PreloadData['courseCode']}}/files/{{file}}">{{file}}</a>
+                    
+                {% endfor %}
+
+            </div> 
+        {% endfor %}
+        {% if PreloadData['resourses'] == [] %}
+        <div class = "sub-container">
+            <h3>No resourses for now</h3>
+        </div>
+        {% endif %}
+
+        <div class="horizontal">
+        <h2>Assignments</h2>
+        {% if accountData['AccountID'][0] == "3" or accountData['AccountID'][0] == "2" %}
+            <button class="lgBtn" onclick="createAssignmentForm()">發佈新作業</button>
+        {% endif %}
+
+
+    </div>
+        <div class = "assignments"> </div>
+        {% for assignment in PreloadData['assignments'] %}
+            <div class = "sub-container">
+                <div class="horizontal">
+                <h3>{{ assignment['title'] }}</h3>
+                    {% if accountData['AccountID'][0] == "3" or accountData['AccountID'][0] == "2" %}
+                        <button onclick="removeAssignment('{{loop.index0}}')">移除</button>
+                    {% endif %}
+                </div>
+                <hr>
+                <p>{{ assignment['content'] }}</p>
+                {% for file in assignment['files'] %}
+                    <a href="{{PreloadData['courseCode']}}/files/{{file}}">{{file}}</a>
+                {% endfor %}
+                <button class="lgBtn" onclick="assignmentForm()">提交</button>
+            </div> 
+        {% endfor %}
+        {% if PreloadData['assignments'] == [] %}
+        <div class = "sub-container">
+            <h3>No assignment for now</h3>
+        </div>
+        {% endif %}
+
+        
+    </div>
+    <script>
+        function removeResourse(index){
+            var target = "/course/{{PreloadData['semester']}}/{{PreloadData['courseCode']}}/resourse/rm/" + index;
+            fetch(target,{
+                    method: 'GET',
+                  })
+            .then(response => {window.location.reload()})
+                }
+
+        function removeAnnouncment(index){
+            var target = "/course/{{PreloadData['semester']}}/{{PreloadData['courseCode']}}/announcement/rm/" + index;
+            fetch(target,{
+                    method: 'GET',
+                  })
+            .then(response => {window.location.reload()})
+                }
+
+        function removeAssignment(index){
+            var target = "/course/{{PreloadData['semester']}}/{{PreloadData['courseCode']}}/assignment/rm/" + index;
+            fetch(target,{
+                    method: 'GET',
+                  })
+            .then(response => {window.location.reload()})
+                }
+        function createAnnouncementForm(){
+            var url = "/course/{{PreloadData['semester']}}/{{PreloadData['courseCode']}}/announcement";  // 指定新窗口的 URL
+            var windowName = 'NewWindow';  // 新窗口的名称，可以是一个唯一的字符串，用于标识窗口
+
+            window.open(url, windowName, "width=720,height=480");
+        }
+
+        function createResourseForm(){
+            var url = "/course/{{PreloadData['semester']}}/{{PreloadData['courseCode']}}/resourses";  // 指定新窗口的 URL
+            var windowName = 'NewWindow';  // 新窗口的名称，可以是一个唯一的字符串，用于标识窗口
+
+            window.open(url, windowName, "width=720,height=480");
+        }
+
+        function createAssignmentForm(){
+            var url = "/course/{{PreloadData['semester']}}/{{PreloadData['courseCode']}}/assignmentForm";  // 指定新窗口的 URL
+            var windowName = 'NewWindow';  // 新窗口的名称，可以是一个唯一的字符串，用于标识窗口
+
+            window.open(url, windowName, "width=720,height=480");
+        }
+        function assignmentForm(){
+            var url = "/course/{{PreloadData['semester']}}/{{PreloadData['courseCode']}}/assignment";  // 指定新窗口的 URL
+            var windowName = 'NewWindow';  // 新窗口的名称，可以是一个唯一的字符串，用于标识窗口
+
+            window.open(url, windowName, "width=720,height=480");
+          
+        }
+        function openUploadWindow() {
+
+            var uploadWindow = window.open("", "_blank", "width=720,height=480");
+            loadsubhtml(uploadWindow);
+        }
+        
+        function loadsubhtml(uploadWindow){
+            var target = "/course/{{PreloadData['semester']}}/{{PreloadData['courseCode']}}/view"
+            
+
+            fetch(target,{
+                    method: 'GET',
+                  })
+                  .then(response => response.json())
+                  .then(data => {
+                    console.log(data);
+                    var precode = "";
+                    data[0].forEach((file, index) => {
+                        console.log(file);
+                        var targetFile = "/course/{{PreloadData['semester']}}/{{PreloadData['courseCode']}}/rm/" + data[1][index];
+                        precode = precode + "<li>" + file + "<button onclick=\"sendRequest('"+ targetFile + "', this)\">Remove</button></li>";
+
+                    });
+                    console.log(precode);
+                    uploadWindow.document.body.innerHTML=(`
+                    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='/css/coursePageSub.css') }}">
+                        <h2>上传已完成的作业</h2>
+                        <div class="submited-area">
+                            <h2>已上傳的文件(如有):</h2>
+                        <ul>
+                        ` 
+                            + precode + 
+                        `
+
+                        </ul>
+                        </div>
+                        <form  class="submited-area" action="/course/{{PreloadData['semester']}}/{{PreloadData['courseCode']}}/submitAssignment" method="post" enctype="multipart/form-data">
+                            <input type="file" name = "file" id="homeworkFile" multiple required>
+                            <button  type="submit" >提交</button>
+                            
+                            
+                        </form>
+                    `);
+                  })
+                  .catch(error => {
+                    console.log('请求发生错误:', error);
+                  });
+                  var nestedScript = document.createElement('script');
+                  nestedScript.text = `            
+
+                    function sendRequest(targetFile, button){
+                        var listItem = button.parentNode;
+                        listItem.parentNode.removeChild(listItem);
+                        fetch(targetFile , {method: 'GET'})
+                        .then(response =>{})
+                        .catch(error => {
+                            console.log('请求发生错误:', error);
+                        });
+                    }`;
+                  uploadWindow.document.head.appendChild(nestedScript);
+
+
+            // uploadWindow.document.close();
+
+            // var form = uploadWindow.document.querySelector("form");
+            // form.addEventListener("submit", function(event) {
+            //     event.preventDefault();
+            //     var homeworkFile = uploadWindow.document.getElementById("homeworkFile").files[0];
+            //     // 在此处编写上传已完成作业的逻辑
+            //     console.log("已选择文件：" + homeworkFile.name);
+            // });
+            }
+
+    </script>
+{% endblock %}

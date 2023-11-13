@@ -1,0 +1,60 @@
+  /* 样式化标题 */
+  body{
+    background-color: #f2f2f2;
+  }
+  h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  /* 样式化无序列表 */
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* 样式化列表项 */
+  li {
+    margin-bottom: 5px;
+  }
+
+  /* 样式化表单 */
+  form {
+    display: flex;
+    align-items: center;
+  }
+
+  /* 样式化按钮 */
+  button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 5px;
+    margin-top:  5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+  }
+
+  /* 鼠标悬停时的按钮样式 */
+  button:hover {
+    background-color: #0056b3;
+  }
+
+  #submited-area{
+    display: block;
+    border-radius: 5px;
+    border: #333 solid 1px;
+    margin:  5px 0;
+  }
+  #homeworkFile{
+    border: #333 solid 1px;
+    border-radius: 5px;
+  }
+  text{
+    margin-left: 5px;
+  }

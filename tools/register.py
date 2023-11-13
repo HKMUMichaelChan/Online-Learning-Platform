@@ -4,10 +4,10 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash
 
 def singelReg(AccountID, LastName, FirstName, Sex, HKId,  Birthday, Address, PhoneNo, SpecialEducationalNeeds, Nationality):
-    with open("Online-Learning-Platform/data/auth.json", 'r') as file:
+    with open("data/auth.json", 'r') as file:
         data  = json.load(file)
 
-    with open("Online-Learning-Platform/data/accountData.json", 'r') as file:
+    with open("data/accountData.json", 'r') as file:
         accountData  = json.load(file)
 
     user = []
@@ -34,13 +34,20 @@ def singelReg(AccountID, LastName, FirstName, Sex, HKId,  Birthday, Address, Pho
                 'Address' : Address,
                 'PhoneNo' : PhoneNo,
                 'SpecialEducationalNeeds' : SpecialEducationalNeeds,
-                'Nationality' : Nationality
+                'Nationality' : Nationality,
+                "Email" : "/",
+                "study" : {},
+                "teache" : {}
+
         })
         print("已新增 " + str(AccountID))
-        with open("Online-Learning-Platform/data/accountData.json", 'w') as file:
+        with open("data/accountData.json", 'w') as file:
             json.dump(accountData, file, indent=4)
-        with open("Online-Learning-Platform/data/auth.json", 'w') as file:
+        with open("data/auth.json", 'w') as file:
             json.dump(data, file, indent=4)
+
+
+       
         return True
     return False
 def excel_to_json(file_path ):
@@ -61,10 +68,10 @@ def excel_to_json(file_path ):
   
 
     # 建立JSON數據
-    with open("Online-Learning-Platform/data/auth.json", 'r') as file:
+    with open("data/auth.json", 'r') as file:
         data  = json.load(file)
 
-    with open("Online-Learning-Platform/data/accountData.json", 'r') as file:
+    with open("data/accountData.json", 'r') as file:
         accountData  = json.load(file)
 
     user = []
@@ -91,12 +98,15 @@ def excel_to_json(file_path ):
                     'Address' : Address,
                     'PhoneNo' : PhoneNo,
                     'SpecialEducationalNeeds' : SpecialEducationalNeeds,
-                    'Nationality' : Nationality
+                    'Nationality' : Nationality,
+                    "Email" : "/",
+                    "study" : [],
+                    "teache" : []
             })
             print("已新增 " + str(AccountID))
-            with open("Online-Learning-Platform/data/accountData.json", 'w') as file:
+            with open("data/accountData.json", 'w') as file:
                 json.dump(accountData, file, indent=4)
-            with open("Online-Learning-Platform/data/auth.json", 'w') as file:
+            with open("data/auth.json", 'w') as file:
                 json.dump(data, file, indent=4)
     return True
         

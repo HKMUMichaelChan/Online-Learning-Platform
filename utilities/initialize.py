@@ -10,8 +10,10 @@ def initialize():
     #需要的文件
     files = [
         "data/auth.json",
-        "data/accountData.json"
-        "data/academicRecordsData.json"
+        "data/accountData.json",
+        "data/academicRecordsData.json",
+        "data/filesToUUIDs.json",
+        "data/courseCodes.json"
     ]
 
     data = {}
@@ -35,6 +37,7 @@ def initialize():
 
                     
                     json.dump(data, file)
+                    print(f"文件 '{file_name}' 已建立")
             elif file_name == files[1]:
                 accountData = []
                 accountData.append({
@@ -51,7 +54,7 @@ def initialize():
                         "Email": "test@email.com",
                         "study":
                             {
-                                "2023-2":[
+                                "2023-Autumn":[
                                     "course1",
                                     "course2"
                                 ]
@@ -60,7 +63,7 @@ def initialize():
                         ,
                         "teache":
                             {
-                                "2023-2":[
+                                "2024-Spring":[
                                     "course1",
                                     "course2"
                                 ]
@@ -69,13 +72,45 @@ def initialize():
                 })
                 with open("data/accountData.json", 'w') as file:
                     json.dump(accountData, file, indent=4)
+                    print(f"文件 '{file_name}' 已建立")
 
-            elif file_name == files[1]:
-                academicRecordsData = []
+            elif file_name == files[2]:
+                academicRecordsData = [
+                    {
+                        "AccountID": "30000000",
+                        "date":{
+                            "2023-Autumn":[
+                                {
+                                    "code" : "course1",
+                                    "Grade" : "A"
+                                },
+                                {
+                                    "code" : "course2",
+                                    "Grade" : "B"
+                                }
+                            ],
+                            "2024-Spring":[
+                                {
+                                    "code" : "course3",
+                                    "Grade" : "C"
+                                },
+                                {
+                                    "code" : "course4",
+                                    "Grade" : "D"
+                                }
+                            ]
+                        }
+
+                    }
+                ]
 
                 with open("data/academicRecordsData.json", 'w') as file:
                     json.dump(academicRecordsData, file, indent=4)
-
+                    print(f"文件 '{file_name}' 已建立")
+            else:
+                with open(file_name, 'w') as file:
+                    json.dump({}, file, indent=4)
+                    print(f"文件 '{file_name}' 已建立")
         else:
             print(f"文件 '{file_name}' 已存在。")
 

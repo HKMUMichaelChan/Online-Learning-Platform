@@ -1,0 +1,37 @@
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='/css/coursePageSub.css') }}">
+<h2>上传已完成的作业</h2>
+<div class="submited-area">
+    <h2>已上傳的文件(如有):</h2>
+    
+{% for file in PreloadData['files'][0] %}
+
+    <li>
+        {{file}} 
+        {% set target = "/course/" + PreloadData['semester'] + "/" + PreloadData['courseCode'] + "/rm/" + PreloadData['files'][1][loop.index0] %}
+        <button onclick="removeFiles('{{target}}')">Remove{{loop.index0}}</button>
+        <button href=>Remove</a>
+    </li> 
+
+{% endfor %}
+</div>
+<form id="submited-area" action="/course/{{PreloadData['semester']}}/{{PreloadData['courseCode']}}/assignment/submit" method="post" enctype="multipart/form-data">
+    <input type="file" name = "file" id="homeworkFile" multiple required>
+    
+    
+</form>
+
+<script>
+
+
+    function removeFiles(target){
+
+        fetch(target,{
+            method: 'POST',
+        })
+        .then(response =>{
+            window.location.reload()
+        })
+    }
+
+
+</script>

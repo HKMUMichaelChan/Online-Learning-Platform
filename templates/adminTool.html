@@ -8,8 +8,8 @@
     <div class="sub-container">
         <h1>個別注冊</h1>
         <div class = "horizontal">
-            <button onclick="showStudentForm()">學生注冊</button>
-            <button onclick="showTeacherForm()">教師注冊</button>
+            <button class="lgBtn" onclick="showStudentForm()">學生注冊</button>
+            <button class="lgBtn" onclick="showTeacherForm()">教師注冊</button>
         </div>
 
 
@@ -50,7 +50,7 @@
             <input type="text" id="Nationality" name="Nationality" required><br>
 
 
-            <button type="submit">提交</button>
+            <button class="lgBtn" type="submit">提交</button>
         </form>
 
             
@@ -87,14 +87,14 @@
             <input type="text" id="Nationality" name="Nationality" required><br>
 
 
-            <button type="submit">提交</button>
+            <button class="lgBtn" type="submit">提交</button>
         </form>
     </div>
     <div class="sub-container">
         <h1> 以xlsx大量注冊</h1>
         <form action="/register/xlsx" method="post" enctype="multipart/form-data">
             <input type="file" name="file">
-            <button type="submit">上傳</button>
+            <button class="lgBtn" type="submit">上傳</button>
         </form>
     </div>
     <div class="sub-container">
@@ -102,11 +102,102 @@
             <form onsubmit="event.preventDefault(); searchJSON();">
               <label for="searchTerm">以AccountID搜索：</label>
               <input type="text" id="searchTerm" name="searchTerm" required>
-              <button type="submit">查询</button>
+              <button class="lgBtn" type="submit">查询</button>
             </form>
             <div id="resultsContainer"></div>
     </div>
+
+    <div class="sub-container">
+        <h1> 課程</h1>
+        
+        
+            <form action="course/create" method="post" enctype="multipart/form-data">
+                <!-- <label for="season">选择季节：</label> -->
+                <!-- <select id="season" name="season">
+                    <option value="">请选择</option>
+                    <option value="">请选择</option>
+                    <option value="">请选择</option>
+                </select> -->
+                <h2>建立課程</h2>
+                <hr>
+                <label for="courseCode">Course Code</label>
+                <input type="text" name="courseCode">
+                <br><br>
+                <label for="courseName">Course Name</label>
+                <input type="text" name="courseName">
+                <input type="submit" value="提交"><hr>
+            </form>
+            
+            <form action="course/add" method="post" enctype="multipart/form-data">
+                <h2>新增課程到指定學期</h2><hr>
+                 <label for="courseCode">課程編號：</label> 
+                 <select id="courseCode" name="courseCode">
+                    {% for course in courseList %}
+                    <option value="{{course}}">{{course}}</option>
+                    {% endfor %}
+
+                </select> 
+                <br><br>
+                <label for="semester">選擇學期：</label> 
+                <select id="semester" name="semester">
+                    {% for Option in SemesterOptions %}
+                    <option value="{{Option}}">{{Option}}</option>
+                    {% endfor %}
+
+               </select> 
+                <input type="submit" value="提交">
+            </form>
+
+            
+            <form action="course/registration/student" method="post" enctype="multipart/form-data">
+                <h2> 以xlsx新增學生到指定學期的課程</h2><hr>
+                <label for="courseCode">課程編號：</label> 
+                <select id="courseCode" name="courseCode">
+                   {% for course in courseList %}
+                   <option value="{{course}}">{{course}}</option>
+                   {% endfor %}
+
+               </select> 
+               <br><br>
+               <label for="semester">選擇學期：</label> 
+               <select id="semester" name="semester">
+                   {% for Option in SemesterOptions %}
+                   <option value="{{Option}}">{{Option}}</option>
+                   {% endfor %}
+
+              </select> <br><br>
+                <input type="file" name="file"><br><br>
+                <button class="lgBtn" type="submit">上傳</button>
+            </form>
+
+
+            <form action="course/registration/teacher" method="post" enctype="multipart/form-data">
+                <h2> 以xlsx新增老師到指定學期的課程</h2><hr>
+                <label for="courseCode">課程編號：</label> 
+                <select id="courseCode" name="courseCode">
+                   {% for course in courseList %}
+                   <option value="{{course}}">{{course}}</option>
+                   {% endfor %}
+
+               </select> 
+               <br><br>
+               <label for="semester">選擇學期：</label> 
+               <select id="semester" name="semester">
+                   {% for Option in SemesterOptions %}
+                   <option value="{{Option}}">{{Option}}</option>
+                   {% endfor %}
+
+              </select> <br><br>
+              <label for="AccountID">Course Code</label>
+              <input type="text" name="AccountID">
+                
+                <button class="lgBtn" type="submit">上傳</button>
+            </form>
+    </div>
 </div>
+
+
+
 <script>
     function showStudentForm() {
         document.getElementById("studentForm").style.display = "block";

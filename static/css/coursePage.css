@@ -1,0 +1,41 @@
+.container{
+    display: block;
+    height: 80vh;
+    justify-content: initial;
+    overflow-y: scroll;
+
+  }
+
+.sub-container{
+    /* border: 1px black solid; */
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.horizontal{
+  display: flex;
+}
+
+button{
+  margin: 10px 5px ;
+  border-radius: 5px;
+  color: white;
+  border: none;
+  cursor: pointer;
+
+
+  background: linear-gradient(135deg, #4CAF50 70%,#4CAF50 75%, #2961dbef 85%,  #2961dbef 100%);
+  background-size: 200%;
+  background-position: left right;
+  transition: background-position 0.3s ease-in-out;
+
+}
+
+button:hover{
+
+
+  background-position: right bottom;
+
+
+}

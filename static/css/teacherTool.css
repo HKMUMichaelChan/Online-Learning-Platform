@@ -1,0 +1,11 @@
+.class-section {
+    margin-bottom: 20px;
+  }
+  .class-interface {
+    display: none;
+  }
+  .container{
+    display: flex;
+    flex-direction: column;
+    justify-content: initial;
+  }

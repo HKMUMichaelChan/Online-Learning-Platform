@@ -48,31 +48,39 @@ table {
     align-items: center;
     font-weight:bold;
     letter-spacing: 4px;
-    background-color: #4CAF50;
+
     color: #fff;
     border: none;
     padding: 10px 40px;
     text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+
     height: 40px  ;
+
+    background: linear-gradient(135deg, #4CAF50 70%,#4CAF50 75%, #2961dbef 85%,  #2961dbef 100%);
+    background-size: 200%;
+    background-position: left right;
+    transition: background-position 0.3s ease-in-out;
   }
   table .buttonTD button{
     display: flex;
     align-items: center;
     font-weight:bold;
     letter-spacing: 4px;
-    background-color: #4CAF50;
+
     color: #fff;
     border: none;
     padding: 10px 40px;
     text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+
     height: 70px  ;
+
+
+
   }
   table button:hover {
-    background-color: #2a5cc9;
+    background-position: right bottom;
   }
   .buttonTD{
     display: flex;
@@ -114,4 +122,6 @@ td .submit-button{
 td .editbutton{
   display: inline-block;
   margin-right: 10px;
+
+  
 }

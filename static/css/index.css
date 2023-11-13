@@ -7,6 +7,7 @@ body {
   z-index: -1;
 }
 
+
 .container {
   padding: 20px;
   background-color: #f2f2f2;
@@ -22,6 +23,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   margin-top: 10px;
+  overflow-y: auto;
 }
 .btn {
   padding: 10px 20px;
@@ -91,15 +93,32 @@ li {
   margin-right: 0px;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease-in-out;
   height: 70px  ;
+
 }
 
 
 .toolbar .links ul li a:hover {
-  background-color: #45a049;
+  background-color: #2961dbef;
 }
 
 div {
   margin: 0;
+}
+
+
+.lgBtn{
+  background: linear-gradient(135deg, #4CAF50 70%,#4CAF50 75%, #2961dbef 85%,  #2961dbef 100%);
+  background-size: 200%;
+  background-position: left right;
+  transition: background-position 0.3s ease-in-out;
+}
+
+.lgBtn:hover{
+
+
+  background-position: right bottom;
+
+
 }

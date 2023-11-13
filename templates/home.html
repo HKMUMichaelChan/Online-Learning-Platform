@@ -10,15 +10,19 @@
 
             <ul>
                 
-                <li><a href="/personal-info">Personal Info</a></li>
-                <li><a href="/academicRecords">Academic records</a></li>
+                <li><a class="homeBtn" href="/personal-info">Personal Info</a></li>
+
+                <li><a class="homeBtn" href="/course">My Course</a></li>
+
+
+                <li><a class="homeBtn" href="/academicRecords">Academic records</a></li>
 
                 {% if role == "3"%}
-                <li><a href="/adminTool">Administrator tools</a></li>
+                <li><a class="homeBtn" href="/adminTool">Administrator Tools</a></li>
                 {% endif %}
 
 
-                <li><a href="/logout">Logout</a></li>
+                <li><a class="homeBtn" href="/logout">Logout</a></li>
 
               </ul>
         </div>

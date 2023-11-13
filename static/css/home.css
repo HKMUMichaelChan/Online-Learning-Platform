@@ -58,14 +58,22 @@ h1{
     border: none;
     background-color: #f2f2f2;
     margin-bottom: 0px;
-    text-decoration: none; /* 去除下划线 */
-    color: inherit; /* 继承父元素的文本颜色 */
-    font-size: 16px; /* 设置文本大小 */
+    text-decoration: none; 
+    color: inherit;
+    font-size: 16px; 
     padding-left: 20px;
     font-weight: bold;
   
   }
-  .menu-container li a:hover {
-    background-color: #2961dbef; /* 改变背景颜色 */
-    color: #ffffff; /* 改变文本颜色 */
+
+
+  .homeBtn {
+    background: linear-gradient(90deg, #2961dbef 5%,#2961dbef 10%, #ffffff  25%,  #ffffff  100%);
+    background-size: 200%;
+    background-position: right top;
+    transition: background-position 0.3s ease-in-out;
+  }
+  
+  .homeBtn:hover{
+    background-position: left bottom;
   }

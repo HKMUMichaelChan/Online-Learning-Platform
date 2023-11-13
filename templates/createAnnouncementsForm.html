@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>發佈公告</title>
+</head>
+<body>
+  <h1>發佈公告</h1>
+
+  <form action="announcement/create" method="post" enctype="multipart/form-data">
+    <label for="title">標題:</label>
+    <input type="text" id="title" name="title" required><br><br>
+
+    <label for="content">内容:</label><br>
+    <textarea id="content" name="content" rows="4" cols="50" required></textarea><br><br>
+
+    <!-- <label for="file">選擇文件:</label>
+    <input type="file" id="file" name="file"><br><br> -->
+
+    <input type="submit" value="发布">
+    {% if message != None %}
+        {{message}}
+
+    {% endif %}
+  </form>
+
+</body>
+<script>
+    if ("{{message}}" != ""){
+      setTimeout(() => {
+
+        window.close();
+        window.opener.location.reload();
+      }, 3000);
+    }
+
+    window.addEventListener('beforeunload', () => {
+      // 刷新父窗口
+      window.opener.location.reload();
+    });
+</script>
+</html>

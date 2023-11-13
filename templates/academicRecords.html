@@ -26,9 +26,14 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  $(document).ready(function() {
-    $.getJSON("/getAcademicRecordsData", function(data) {
-      var grades = data[0].date;
+
+    // $.getJSON(target, function(data) {
+      var academicRecordsData = "{{academicRecordsData}}";
+      academicRecordsData = academicRecordsData.replace(/&#39;/g, '"');
+      academicRecordsData = JSON.parse(academicRecordsData);
+      console.log(academicRecordsData);
+      var grades = academicRecordsData.date;
+      console.log(grades);
       var lastVardate;
       // 遍历日期并创建相应的表格
       for (var date in grades) {
@@ -70,8 +75,8 @@
           
         }
       }
-    });
-  });
+    // });
+//   });
 </script>
 
 

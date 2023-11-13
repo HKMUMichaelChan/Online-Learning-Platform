@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block MainContent %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='/css/courseIndex.css') }}">
+
+
+<div class="container">
+    {% if accountData['AccountID'][0] == "1" or accountData['AccountID'][0] == "3" %}
+    <h1>就讀課程</h1>
+    <hr>
+    {% for semester in PreloadData['semesters'] %}
+    <h2>{{semester}}</h2>
+    <ul>
+        {% for courseCode in accountData['study'][semester] %}
+        <li>
+            <a class="lgBtn" href="{{semester}}/{{courseCode}}">{{courseCode}} {{PreloadData['courseCodeToName'][courseCode]}}</a>
+
+        </li>
+        <br>
+        <hr>
+        {% endfor %}
+
+    </ul>
+    {% endfor %}
+    {% endif %}
+    {% if accountData['AccountID'][0] == "2" or accountData['AccountID'][0] == "3" %}
+    <h1>任教課程</h1>
+    <hr>
+        {% for semester in PreloadData['semesters'] %}
+        <h2>{{semester}}</h2>
+        <ul>
+            {% for courseCode in accountData['teache'][semester] %}
+            <li>
+                <a class="lgBtn" href="{{semester}}/{{courseCode}}">{{courseCode}} {{PreloadData['courseCodeToName'][courseCode]}}</a>
+
+            </li>
+            <br>
+            <hr>
+            {% endfor %}
+
+        </ul>
+        {% endfor %}
+    {% endif %}
+</div>
+
+
+
+
+
+{% endblock %}

@@ -362,6 +362,39 @@ def load(app, accountData):
             print(folderPath + filePath)
             return ""
 
+    @app.route("/course/<Semester>/<CourseCode>/score")
+    def scoreManagement(Semester,CourseCode):
+        authError = utilities.authVerify(app, 2)
+        if authError is not None:
+            return authError
+        else:  
+            PreloadData = []
+            js = jsonIO.load_data("data/academicRecordsData.json")
+            accountData = jsonIO.load_data("data/accountData.json")
+            for singleAccount in accountData:
+                if Semester in singleAccount["study"].keys():
+
+                    if CourseCode in singleAccount["study"][Semester]:
+                        
+                        for AccountRecords in js:
+                            if  AccountRecords['AccountID'] == singleAccount['AccountID']:
+
+
+                                for course in AccountRecords['general'][Semester]:
+                                    if course['courseCode'] == CourseCode:
+                                        PreloadData.append({
+                                            "AccountID ": singleAccount['AccountID'],
+                                            "FullName" : singleAccount['LastName'] + singleAccount['FirstName'],
+                                            "Score" : course['grade']
+                                        })
+
+
+            
+
+            data = [item for item in accountData if item["AccountID"] == session['username'] ][0]
+            return render_template('scoreManagement.html',accountData = data, PreloadData = PreloadData)
+
+
 
     #course/2023-Autumn/100
     @app.route("/course/<Semester>/<CourseCode>")

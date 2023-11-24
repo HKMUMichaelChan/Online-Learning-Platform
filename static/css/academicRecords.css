@@ -35,4 +35,25 @@ body {
   }
   .sub-container{
     width: 100%;
+    margin-top: 0;
+  }
+
+  h2{
+    margin-bottom: 0;
+  }
+  .sub-container tr:hover td {
+    background-color: #ffffff; /* 鼠标悬停时的背景颜色 */
+  }
+
+  .sub-container tr:hover td.semester {
+    background-color: initial; /* 恢复初始背景颜色 */
+  }
+
+  .lgBtn{
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
   }

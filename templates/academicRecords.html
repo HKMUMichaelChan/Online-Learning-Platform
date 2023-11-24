@@ -13,70 +13,44 @@
 
 <div class="container">
     <h1>My Academic Records</h1>
-    <h1>成绩单</h1>
+
+    <h2>Transcript</h2>
     <table class="sub-container">
         <tr>
-            <th>學期</th><th>課程代碼</th><th>成績</th>
+            <th width="10%">Semester</th><th width="10%">Course Code</th><th width="60%">Course Name</th><th width="10%">Grade</th>
         </tr>
+
+        {% for semester in academicRecordsData['general'].keys() %}
         <tr>
-    
+          <td class="semester" rowspan="{{academicRecordsData['general'][semester]|length}}"><h2>{{semester}}</h2></td>
+          {% for course in academicRecordsData['general'][semester] %}
+              <td>{{course['courseCode']}}</td>
+              <td>{{course['courseName']}}</td>
+              <td>{{course['grade']}}</td>
+              </tr>
+              <tr>
+          {% endfor %} 
         </tr>
+        {% endfor %}
     </table>
-    
+    <h2>Others</h2>
+    <table class="sub-container">
+      <tr>
+        <th width="10%">Date</th><th width="80%">Event / Competion Name</th><th width="10%">Award/Rank</th>
+    </tr>  
+    {% for item in academicRecordsData['others'] %}
+    <tr>
+      <td>{{item['date']}}</td>
+      <td>{{item['event']}}</td>
+      <td>{{item['award']}}</td>
+      
+
+    </tr>
+    {% endfor %}
+    </table>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
-    // $.getJSON(target, function(data) {
-      var academicRecordsData = "{{academicRecordsData}}";
-      academicRecordsData = academicRecordsData.replace(/&#39;/g, '"');
-      academicRecordsData = JSON.parse(academicRecordsData);
-      console.log(academicRecordsData);
-      var grades = academicRecordsData.date;
-      console.log(grades);
-      var lastVardate;
-      // 遍历日期并创建相应的表格
-      for (var date in grades) {
-
-        if (grades.hasOwnProperty(date)) {
-
-
-
-            var courseGrades = grades[date];
-          // 遍历特定日期的课程成绩并添加到表格中
-          courseGrades.forEach(function(grade) {
-            if (lastVardate != date){
-                
-
-                var [year, semester] = date.split('-');
-                // 创建日期标题
-                var dateHeading = $("<h2></h2>").text(year + " " + semester);
-
-                var tdContainer = $("<td rowspan=" + Object.keys(courseGrades).length +  "></td>");
-                var trContainer = $("<tr></tr>");
-
-                tdContainer.append(dateHeading);
-                trContainer.append(tdContainer)
-
-
-                trContainer.append($("<td></td>").text(grade.code));
-                trContainer.append($("<td></td>").text(grade.Grade));
-                $(".sub-container").append(trContainer);
-            }
-            else{
-                var trContainer = $("<tr></tr>");
-                trContainer.append($("<td></td>").text(grade.code));
-                trContainer.append($("<td></td>").text(grade.Grade));
-                $(".sub-container").append(trContainer);
-            }
-            lastVardate = date;
-
-          });
-          
-        }
-      }
-    // });
-//   });
 </script>
 
 

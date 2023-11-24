@@ -82,8 +82,8 @@
         "SpecialEducationalNeeds": "/",
         "Nationality": "Hong Kong",
         "Email": "/",
-        "study": [],
-        "teache": []
+        "study": {},
+        "teache": {}
     },
     {
         "AccountID": "20000001",

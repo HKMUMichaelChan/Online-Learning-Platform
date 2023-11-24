@@ -1,0 +1,38 @@
+
+{% extends 'base.html' %}
+
+{% block MainContent %}
+
+<div class="container">
+
+    <table>
+        <tr>
+            <th>Student ID</th>
+            <th>Full Name</th>
+            <th>Score</th>
+        </tr>
+        {% for Student in PreloadData %}
+            <tr>
+                <td>{{Student['AccountID']}}</td>
+                <td>{{Student['FullName']}}</td>
+                <td>{{Student['Score']}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

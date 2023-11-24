@@ -5,7 +5,15 @@
 
 
     <div class="container">
+        <div class="horizontal">
         <h1>{{PreloadData['courseCode']}} {{PreloadData['courseName']}}</h1>
+        
+        {% if accountData['AccountID'][0] == "3"%}
+
+        <button class="lgBtn" onclick="scoreManagement()">Score Management</button>
+    
+        {% endif %}
+            </div>
         <hr>
         <div class="horizontal">
             <h2>announcements</h2>
@@ -94,9 +102,13 @@
         </div>
         {% endif %}
 
+
         
     </div>
     <script>
+        function scoreManagement(){
+            location.assign("/course/{{PreloadData['semester']}}/{{PreloadData['courseCode']}}/score")
+        }
         function removeResourse(index){
             var target = "/course/{{PreloadData['semester']}}/{{PreloadData['courseCode']}}/resourse/rm/" + index;
             fetch(target,{

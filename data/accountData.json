@@ -14,17 +14,9 @@
         "study": {
             "2023-Autumn": [
                 "100"
-            ],
-            "2024-Spring": [
-                "200"
             ]
         },
-        "teache": {
-            "2023-Summer": [
-                "200",
-                "300"
-            ]
-        }
+        "teache": {}
     },
     {
         "AccountID": "12345678",
@@ -41,9 +33,6 @@
         "study": {
             "2023-Autumn": [
                 "100"
-            ],
-            "2024-Spring": [
-                "200"
             ]
         },
         "teache": {}
@@ -63,79 +52,8 @@
         "study": {
             "2023-Autumn": [
                 "100"
-            ],
-            "2024-Spring": [
-                "200"
             ]
         },
         "teache": {}
-    },
-    {
-        "AccountID": "20000000",
-        "LastName": "CHAN",
-        "FirstName": "AAAA BBBB",
-        "Sex": "F",
-        "HKID": "A123456(7)",
-        "Birthday": "tttt",
-        "Address": null,
-        "PhoneNo": "45667894",
-        "SpecialEducationalNeeds": "/",
-        "Nationality": "Hong Kong",
-        "Email": "/",
-        "study": {},
-        "teache": {}
-    },
-    {
-        "AccountID": "20000001",
-        "LastName": "CHAN",
-        "FirstName": "AAAA BBBB",
-        "Sex": "F",
-        "HKID": "A123456(7)",
-        "Birthday": "tttt",
-        "Address": null,
-        "PhoneNo": "45667894",
-        "SpecialEducationalNeeds": "/",
-        "Nationality": "Hong Kong",
-        "Email": "/",
-        "study": {},
-        "teache": {}
-    },
-    {
-        "AccountID": "20000002",
-        "LastName": "CHAN",
-        "FirstName": "AAAA BBBB",
-        "Sex": "F",
-        "HKID": "A123456(7)",
-        "Birthday": "tttt",
-        "Address": null,
-        "PhoneNo": "45667894",
-        "SpecialEducationalNeeds": "/",
-        "Nationality": "Hong Kong",
-        "Email": "/",
-        "study": {},
-        "teache": {}
-    },
-    {
-        "AccountID": "20000003",
-        "LastName": "CHAN",
-        "FirstName": "AAAA BBBB",
-        "Sex": "F",
-        "HKID": "A123456(7)",
-        "Birthday": "tttt",
-        "Address": null,
-        "PhoneNo": "45667894",
-        "SpecialEducationalNeeds": "/",
-        "Nationality": "Hong Kong",
-        "Email": "/",
-        "study": {
-            "2023-Autumn": [
-                "100"
-            ]
-        },
-        "teache": {
-            "2023-Autumn": [
-                "100"
-            ]
-        }
     }
 ]

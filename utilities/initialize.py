@@ -54,19 +54,19 @@ def initialize():
                         "Email": "test@email.com",
                         "study":
                             {
-                                "2023-Autumn":[
-                                    "course1",
-                                    "course2"
-                                ]
+                                # "2023-Autumn":[
+                                #     "course1",
+                                #     "course2"
+                                # ]
                             }
 
                         ,
                         "teache":
                             {
-                                "2024-Spring":[
-                                    "course1",
-                                    "course2"
-                                ]
+                                # "2024-Spring":[
+                                #     "course1",
+                                #     "course2"
+                                # ]
                             }
                         
                 })
@@ -78,28 +78,44 @@ def initialize():
                 academicRecordsData = [
                     {
                         "AccountID": "30000000",
-                        "date":{
+                        "general":{
                             "2023-Autumn":[
-                                {
-                                    "code" : "course1",
-                                    "Grade" : "A"
-                                },
-                                {
-                                    "code" : "course2",
-                                    "Grade" : "B"
-                                }
+                                # {
+                                #     "courseCode" : "100",
+                                #     "courseName" : "name",
+                                #     "grade" : "A"
+                                # },
+                                # {
+                                #     "courseCode" : "200",
+                                #     "courseName" : "namawdwe",
+                                #     "grade" : "B"
+                                # }
                             ],
                             "2024-Spring":[
-                                {
-                                    "code" : "course3",
-                                    "Grade" : "C"
-                                },
-                                {
-                                    "code" : "course4",
-                                    "Grade" : "D"
-                                }
+                                # {
+                                #     "courseCode" : "course3",
+                                #     "courseName" : "name",
+                                #     "grade" : "C"
+                                # },
+                                # {
+                                #     "courseCode" : "course4",
+                                #     "courseName" : "name",
+                                #     "grade" : "D"
+                                # }
                             ]
-                        }
+                        },
+                        "others":[
+                            {
+                                "date":"2023/11/19",
+                                "event":"nice competion",
+                                "award":"No.1"
+                            },
+                            {
+                                "date":"2023/11/22",
+                                "event":"not good competion",
+                                "award":"No.2"
+                            }
+                        ]
 
                     }
                 ]

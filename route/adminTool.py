@@ -1,5 +1,5 @@
 
-
+from utilities import CommonVar
 import datetime
 import os
 from flask import jsonify, redirect, render_template, request, session, url_for
@@ -13,7 +13,7 @@ import pandas as pd
 
 
 
-def load(app, accountData):
+def load(app):
     @app.route("/course/registration/student", methods = ['POST'])
     def courseReg():
         authError = utilities.authVerify(app, 3)
@@ -27,17 +27,38 @@ def load(app, accountData):
             df = pd.read_excel(file, sheet_name=0)
             AccountIDs = df["AccountID"].tolist()
 
-            accountData = jsonIO.load_data('data/accountData.json')
+            CommonVar.accountData = jsonIO.load_data('data/accountData.json')
+            aRecords = jsonIO.load_data('data/academicRecordsData.json')
+            courseCodeList = jsonIO.load_data('data/courseCodes.json')
             for AccountID in AccountIDs:
-                for account in accountData:
+                for account in CommonVar.accountData:
+
+
                     if account["AccountID"] == str(AccountID):
+                        for aRecord in aRecords:
+                            
+                            if aRecord["AccountID"] == str(AccountID):
+                                if PostData['semester'] not in tuple(aRecord['general'].keys()):
+                                    aRecord['general'][PostData['semester']] = []
+                                if PostData['semester'] not in tuple(account["study"].keys()):
+                                    account["study"][PostData['semester']] = []
+                                if PostData['courseCode'] in account["study"][PostData['semester']]:
+                                    break
+                                aRecord['general'][PostData['semester']].append({
+                                    "courseCode" : PostData['courseCode'],
+                                    "courseName" : courseCodeList[PostData['courseCode']],
+                                    "grade" : "-"
+                                })
                         print(type(PostData['courseCode']))
-                        if [PostData['semester']] not in tuple(account["study"].keys()):
-                            account["study"][PostData['semester']] = []
+
                         if PostData['courseCode'] not in account["study"][PostData['semester']]:
                             account["study"][PostData['semester']].append(PostData['courseCode'])
                             print(account["study"])
-            jsonIO.save_data(accountData, 'data/accountData.json')
+                        break
+
+            jsonIO.save_data(aRecords, 'data/academicRecordsData.json')
+            jsonIO.save_data(CommonVar.accountData, 'data/accountData.json')
+            CommonVar.accountData = jsonIO.load_data("data/accountData.json")
             return ""
 
     @app.route("/course/registration/teacher", methods = ['POST'])  
@@ -53,9 +74,9 @@ def load(app, accountData):
 
             AccountID = str(PostData['AccountID'])
             print(AccountID)
-            accountData = jsonIO.load_data('data/accountData.json')
+            CommonVar.accountData = jsonIO.load_data('data/accountData.json')
 
-            for account in accountData:
+            for account in CommonVar.accountData:
                 if account["AccountID"] == str(AccountID):
                     print(type(PostData['courseCode']))
                     if [PostData['semester']] not in tuple(account["teache"].keys()):
@@ -63,8 +84,8 @@ def load(app, accountData):
                     if PostData['courseCode'] not in account["teache"][PostData['semester']]:
                         account["teache"][PostData['semester']].append(PostData['courseCode'])
                         print(account["teache"])
-            jsonIO.save_data(accountData, 'data/accountData.json')
-            accountData = jsonIO.load_data("data/accountData.json")
+            jsonIO.save_data(CommonVar.accountData, 'data/accountData.json')
+            CommonVar.accountData = jsonIO.load_data("data/accountData.json")
             return ""    
     @app.route("/course/create", methods = ['POST'])
     def courseCreate():
@@ -76,6 +97,7 @@ def load(app, accountData):
             course = jsonIO.load_data('data\courseCodes.json')
             course[form['courseCode']] = form['courseName']
             jsonIO.save_data(course, 'data\courseCodes.json')
+
             return redirect(url_for('adminTool'))
         
     @app.route("/course/add", methods = ['POST'])
@@ -111,7 +133,7 @@ def load(app, accountData):
                 # 这里替换为你的 JSON 文件路径
 
                 matches = []
-                matchedAccDatas = [item for item in accountData if item["AccountID"].startswith(query) ]
+                matchedAccDatas = [item for item in CommonVar.accountData if item["AccountID"].startswith(query) ]
                 for matchedAccData in matchedAccDatas:
 
                     matches.append(matchedAccData['AccountID'])
@@ -136,9 +158,9 @@ def load(app, accountData):
                     request.form.get('SpecialEducationalNeeds'),
                     request.form.get('Nationality')
                     ):
-                global auth, accountData
+
                 auth = jsonIO.load_data("data/auth.json")
-                accountData = jsonIO.load_data("data/accountData.json")
+                CommonVar.accountData = jsonIO.load_data("data/accountData.json")
                 return redirectPage("/adminTool", f"學生 {request.form.get('LastName')}{request.form.get('FirstName')}({request.form.get('AccountID')}) 注冊成功")
             else:
                 return redirectPage("/adminTool", f"資料不正確")
@@ -162,9 +184,9 @@ def load(app, accountData):
                     request.form.get('SpecialEducationalNeeds'),
                     request.form.get('Nationality')
                     ):
-                global auth, accountData
+
                 auth = jsonIO.load_data("data/auth.json")
-                accountData = jsonIO.load_data("data/accountData.json")
+                CommonVar.accountData = jsonIO.load_data("data/accountData.json")
                 return redirectPage("/adminTool", f"教師 {request.form.get('LastName')}{request.form.get('FirstName')}({request.form.get('AccountID')}) 注冊成功")
             else:
                 return redirectPage("/adminTool", "Account ID 已重複")
@@ -178,9 +200,9 @@ def load(app, accountData):
         else:
             file = request.files['file']
             if excel_to_json(file):
-                global auth, accountData
+
                 auth = jsonIO.load_data("data/auth.json")
-                accountData = jsonIO.load_data("data/accountData.json")
+                CommonVar.accountData = jsonIO.load_data("data/accountData.json")
                 return redirectPage("/adminTool", f"注冊成功")
             else:
                 return redirectPage("/adminTool", "Account ID 已重複")
@@ -220,11 +242,11 @@ def load(app, accountData):
         if authError is not None:
             return authError
         else:
-                data = [item for item in accountData if item["AccountID"] == session['username'] ][0]
+                data = [item for item in CommonVar.accountData if item["AccountID"] == session['username'] ][0]
                 courseList = jsonIO.load_data("data\courseCodes.json")
                 SemesterOptions = getSemesterOption()
                 # SemesterOptions.reverse()
-                return render_template('adminTool.html',accountData = data , queryData = accountData, courseList= courseList, SemesterOptions = SemesterOptions)
+                return render_template('adminTool.html',accountData = data , queryData = CommonVar.accountData, courseList= courseList, SemesterOptions = SemesterOptions)
 
     @app.route("/GetAccountData")
     def GetAccountData():
@@ -232,4 +254,4 @@ def load(app, accountData):
         if authError is not None:
             return authError
         else:
-            return jsonify(accountData)
+            return jsonify(CommonVar.accountData)

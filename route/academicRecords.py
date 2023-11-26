@@ -6,12 +6,12 @@
 
 
 
-
+from utilities import CommonVar
 from flask import render_template, session
 from utilities import jsonIO, utilities
 
 
-def load(app, accountData):
+def load(app):
     @app.route("/academicRecords/<AccountID>/")
     @app.route("/academicRecords/<AccountID>")
     def academicRecords_adminVer(AccountID):
@@ -22,9 +22,9 @@ def load(app, accountData):
             academicRecordsDatas = jsonIO.load_data("data/academicRecordsData.json")
             for academicRecordsData in academicRecordsDatas:
                 if academicRecordsData['AccountID'] == AccountID:
-                    data = [item for item in accountData if item["AccountID"] == session['username'] ][0]
+                    data = [item for item in CommonVar.accountData if item["AccountID"] == session['username'] ][0]
                     return render_template('academicRecords.html',accountData = data,  academicRecordsData = academicRecordsData)
-            data = [item for item in accountData if item["AccountID"] == session['username'] ][0]
+            data = [item for item in CommonVar.accountData if item["AccountID"] == session['username'] ][0]
             return render_template('academicRecords.html',accountData = data,academicRecordsData = {})
 
     @app.route("/academicRecords")
@@ -33,14 +33,14 @@ def load(app, accountData):
         if authError is not None:
             return authError
         else:
-            global accountData
-            accountData = jsonIO.load_data("data/accountData.json")
+
+            CommonVar.accountData = jsonIO.load_data("data/accountData.json")
             academicRecordsDatas = jsonIO.load_data("data/academicRecordsData.json")
             for academicRecordsData in academicRecordsDatas:
                 if academicRecordsData['AccountID'] == session['username']:
-                    data = [item for item in accountData if item["AccountID"] == session['username'] ][0]
+                    data = [item for item in CommonVar.accountData if item["AccountID"] == session['username'] ][0]
                     return render_template('academicRecords.html',accountData = data,  academicRecordsData = academicRecordsData)
-            data = [item for item in accountData if item["AccountID"] == session['username'] ][0]
+            data = [item for item in CommonVar.accountData if item["AccountID"] == session['username'] ][0]
             return render_template('academicRecords.html',accountData = data,academicRecordsData = {})
     
     
@@ -50,12 +50,12 @@ def load(app, accountData):
         if authError is not None:
             return authError
         else:
-            global accountData
-            accountData = jsonIO.load_data("data/accountData.json")
+
+            CommonVar.accountData = jsonIO.load_data("data/accountData.json")
             academicRecordsDatas = jsonIO.load_data("data/academicRecordsData.json")
             for academicRecordsData in academicRecordsDatas:
                 if academicRecordsData['AccountID'] == AccountID:
-                    data = [item for item in accountData if item["AccountID"] == AccountID[0]]
+                    data = [item for item in CommonVar.accountData if item["AccountID"] == AccountID[0]]
                     return render_template('academicRecords.html',accountData = data,  academicRecordsData = academicRecordsData)
-            data = [item for item in accountData if item["AccountID"] == session['username'] ][0]
+            data = [item for item in CommonVar.accountData if item["AccountID"] == session['username'] ][0]
             return render_template('academicRecords.html',accountData = data,academicRecordsData = {})

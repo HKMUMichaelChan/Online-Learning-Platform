@@ -1,32 +1,136 @@
 
 {% extends 'base.html' %}
-
+    
 {% block MainContent %}
-
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='/css/scoreManagement.css') }}">
 <div class="container">
-
+    <h2>Grade Editor</h2>
     <table>
+
         <tr>
-            <th>Student ID</th>
-            <th>Full Name</th>
-            <th>Score</th>
+            <th width="10%">Student ID</th>
+            <th width="80%">Full Name</th>
+            <th width="10%">Score(Editable)</th>
         </tr>
+        <tbody  id="tableBody">
         {% for Student in PreloadData %}
             <tr>
                 <td>{{Student['AccountID']}}</td>
                 <td>{{Student['FullName']}}</td>
-                <td>{{Student['Score']}}</td>
+                <td contenteditable="true" data-student-id >{{Student['Score']}}</td>
             </tr>
         {% endfor %}
+        </tbody>
     </table>
 
+    <div id="paginationContainer"></div>
 
-
+    
+    <button class="lgBtn" onclick="submitChanges()">提交</button>
 
 </div>
+<script>
+
+var students = {{ PreloadData|tojson }};
 
 
+var itemsPerPage = 20;
 
+var totalPages = Math.ceil(students.length / itemsPerPage);
+
+var currentPage = 1;
+
+
+var modifiedData = {};
+
+var paginationContainer = document.getElementById('paginationContainer');
+
+function updatePagination() {
+
+  paginationContainer.innerHTML = '';
+
+  var startIndex = (currentPage - 1) * itemsPerPage;
+  var endIndex = startIndex + itemsPerPage;
+  var currentStudents = students.slice(startIndex, endIndex);
+
+  var html = '';
+  for (var i = 0; i < currentStudents.length; i++) {
+    var student = currentStudents[i];
+    var studentId = student['AccountID'];
+    var modifiedScore = modifiedData[studentId] || student['Score'];
+    html += '<tr>';
+    html += '<td>' + studentId + '</td>';
+    html += '<td>' + student['FullName'] + '</td>';
+    html += '<td><select onchange="handleSelectChange(this)" data-student-id="' + studentId + '">';
+        html += '<option value="-" ' + (modifiedScore === '-' ? 'selected' : '') + '>-</option>';
+      html += '<option value="A" ' + (modifiedScore === 'A' ? 'selected' : '') + '>A</option>';
+      html += '<option value="A-" ' + (modifiedScore === 'A-' ? 'selected' : '') + '>A-</option>';
+      html += '<option value="B+" ' + (modifiedScore === 'B+' ? 'selected' : '') + '>B+</option>';
+      html += '<option value="B" ' + (modifiedScore === 'B' ? 'selected' : '') + '>B</option>';
+      html += '<option value="B-" ' + (modifiedScore === 'B-' ? 'selected' : '') + '>B-</option>';
+      html += '<option value="C+" ' + (modifiedScore === 'C+' ? 'selected' : '') + '>C+</option>';
+      html += '<option value="C" ' + (modifiedScore === 'C' ? 'selected' : '') + '>C</option>';
+      html += '<option value="B+" ' + (modifiedScore === 'Failed' ? 'selected' : '') + '>Failed</option>';
+      // 添加其他选项
+      html += '</select>';
+      html += '</td>';
+      html += '</tr>';
+    }
+
+
+  var tableBody = document.getElementById('tableBody');
+  tableBody.innerHTML = html;
+
+  var paginationHtml = '';
+  for (var page = 1; page <= totalPages; page++) {
+    paginationHtml += '<a class="round-button" href="#" onclick="goToPage(' + page + ')">' + page + '</a>';
+  }
+
+  paginationContainer.innerHTML = paginationHtml;
+}
+function goToPage(page) {
+  saveModifiedData();
+  currentPage = page;
+  updatePagination();
+}
+
+
+function saveModifiedData() {
+    var modifiedSelects = document.querySelectorAll('select[data-student-id]');
+  for (var i = 0; i < modifiedSelects.length; i++) {
+    var select = modifiedSelects[i];
+    var studentId = select.getAttribute('data-student-id');
+    var modifiedScore = select.value;
+    modifiedData[studentId] = modifiedScore;
+  }
+}
+function handleSelectChange(select) {
+  var studentId = select.getAttribute('data-student-id');
+  var modifiedScore = select.value;
+  modifiedData[studentId] = modifiedScore;
+}
+
+function submitChanges() {
+  saveModifiedData();
+//   console.log(modifiedData)
+    fetch('score/post' ,{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(modifiedData)
+        })                  
+        .then(response => {
+        location.reload();
+        })
+        .catch(error => {
+        console.log('请求发生错误:', error);
+        });
+}
+
+
+updatePagination();
+  </script>
 
 
 

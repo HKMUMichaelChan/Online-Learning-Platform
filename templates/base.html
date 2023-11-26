@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>主页</title>
+    <title>Home</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',     filename='/css/index.css') }}">
 </head>
 <body>
@@ -9,7 +9,7 @@
       <div class="logo">
         <img src="\static\image\icon.png" alt="Logo" height="80">
         <div class="brand">
-            <span>歡迎回來 {{accountData['LastName']}} {{accountData['FirstName']}}</span> <!-- 添加的文字内容 -->
+            <span>Welcome {{accountData['LastName']}} {{accountData['FirstName']}}</span> 
         </div>
       </div>
       <div class="links">

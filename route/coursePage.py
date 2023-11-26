@@ -7,10 +7,10 @@ from flask import jsonify, redirect, render_template, request, send_file, sessio
 from route.redirectPage import redirectPage
 from utilities import jsonIO, utilities
 from markupsafe import Markup
+from utilities import CommonVar
 
 
-
-def load(app, accountData):
+def load(app):
 
     
     @app.route("/course/")
@@ -19,8 +19,8 @@ def load(app, accountData):
         if authError is not None:
             return authError
         else:
-            accountData = jsonIO.load_data("data/accountData.json")
-            data = [item for item in accountData if item["AccountID"] == session['username'] ][0]
+
+            data = [item for item in CommonVar.accountData if item["AccountID"] == session['username'] ][0]
             if session['username'][0] == '1':
                 mode = "study"
             elif session['username'][0] == '2':
@@ -50,7 +50,7 @@ def load(app, accountData):
             return authError
         else:
             if request.args.get("r") == '0':
-                message = "已發佈作業，三秒後關閉視窗"
+                message = "Assignment posted, window will be closed after three seconds"
                 return render_template("createAssignmentForm.html", Semester = Semester , CourseCode = CourseCode, message = message)
             else:
                 message = ""
@@ -103,7 +103,7 @@ def load(app, accountData):
             return authError
         else:
             if request.args.get("r") == '0':
-                message = "已發佈公告，三秒後關閉視窗"
+                message = "Resourse posted, window will be closed after three seconds"
                 return render_template("createResourseForm.html", Semester = Semester , CourseCode = CourseCode, message = message)
             else:
                 message = ""
@@ -177,7 +177,7 @@ def load(app, accountData):
             return authError
         else:
             if request.args.get("r") == '0':
-                message = "已發佈公告，三秒後關閉視窗"
+                message = "Announcement posted, window will be closed after three seconds"
                 return render_template("createAnnouncementsForm.html", Semester = Semester , CourseCode = CourseCode, message = message)
             else:
                 message = ""
@@ -362,6 +362,27 @@ def load(app, accountData):
             print(folderPath + filePath)
             return ""
 
+    @app.route("/course/<Semester>/<CourseCode>/score/post", methods =['POST'])
+    def postScore(Semester,CourseCode):
+        authError = utilities.authVerify(app, 2)
+        if authError is not None:
+            return authError
+        else:
+            postData = request.json
+            currentData = jsonIO.load_data('data/academicRecordsData.json')
+            
+            for accountID in postData.keys():
+                score = postData[accountID]
+                for student in currentData:
+                    print(Semester)
+                    if student['AccountID'] == accountID and Semester in student['general'].keys():
+                        for course in student['general'][Semester]:
+                            if course['courseCode'] == CourseCode:
+                                course['grade'] = score
+            jsonIO.save_data(currentData, 'data/academicRecordsData.json')
+            return ''
+            # print(form)
+
     @app.route("/course/<Semester>/<CourseCode>/score")
     def scoreManagement(Semester,CourseCode):
         authError = utilities.authVerify(app, 2)
@@ -370,29 +391,35 @@ def load(app, accountData):
         else:  
             PreloadData = []
             js = jsonIO.load_data("data/academicRecordsData.json")
-            accountData = jsonIO.load_data("data/accountData.json")
-            for singleAccount in accountData:
-                if Semester in singleAccount["study"].keys():
+            CommonVar.accountData = jsonIO.load_data("data/accountData.json")
+            for singleAccount in CommonVar.accountData:
+                if not Semester in singleAccount["study"].keys(): #這學期有沒有入學
+                    break
+                if not CourseCode in singleAccount["study"][Semester]: # 入學的這學期有沒有讀這課程
+                    break
+                    
+                for AccountRecords in js:
+                    if not AccountRecords['AccountID'] == singleAccount['AccountID']: #找出這個學生的成績資料
+                        continue
 
-                    if CourseCode in singleAccount["study"][Semester]:
-                        
-                        for AccountRecords in js:
-                            if  AccountRecords['AccountID'] == singleAccount['AccountID']:
+                    
+                    for course in AccountRecords['general'][Semester]: #找出成績資料的所有課程
+                        if course['courseCode'] == CourseCode: #找出對應學生課程的成績
+                            PreloadData.append({
+                                "AccountID": singleAccount['AccountID'],
+                                "FullName" : singleAccount['LastName'] + singleAccount['FirstName'],
+                                "Score" : course['grade']
+                            })
 
 
-                                for course in AccountRecords['general'][Semester]:
-                                    if course['courseCode'] == CourseCode:
-                                        PreloadData.append({
-                                            "AccountID ": singleAccount['AccountID'],
-                                            "FullName" : singleAccount['LastName'] + singleAccount['FirstName'],
-                                            "Score" : course['grade']
-                                        })
-
+            for d in PreloadData:
+                
+                print(d['AccountID'])
 
             
 
-            data = [item for item in accountData if item["AccountID"] == session['username'] ][0]
-            return render_template('scoreManagement.html',accountData = data, PreloadData = PreloadData)
+            data = [item for item in CommonVar.accountData if item["AccountID"] == session['username'] ][0]
+            return render_template('scoreManagement.html', accountData = data, PreloadData = PreloadData)
 
 
 
@@ -408,7 +435,7 @@ def load(app, accountData):
                 redirectPage("/home","Counld not found the Page")
             else:
                 session['token'] = utilities.tokenAlive(app)
-                data = [item for item in accountData if item["AccountID"] == session['username'] ][0]
+                data = [item for item in CommonVar.accountData if item["AccountID"] == session['username'] ][0]
                 CourseData = jsonIO.load_data(f"data/course/{Semester}/{CourseCode}/data.json")
                 CourseName = jsonIO.load_data("data\courseCodes.json")[CourseCode]
                 uuidData = jsonIO.load_data("data/filesToUUIDs.json")
@@ -458,4 +485,4 @@ def load(app, accountData):
                 }
                 
 
-                return render_template('coursePage.html',accountData = data, PreloadData = PreloadData)
+                return render_template('coursePage.html', accountData = data, PreloadData = PreloadData)

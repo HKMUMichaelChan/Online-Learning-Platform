@@ -6,7 +6,7 @@
 
 <div class="container">
     {% if accountData['AccountID'][0] == "1" or accountData['AccountID'][0] == "3" %}
-    <h1>就讀課程</h1>
+    <h1>Enrolling course</h1>
     <hr>
     {% for semester in PreloadData['semesters'] %}
     <h2>{{semester}}</h2>
@@ -24,7 +24,7 @@
     {% endfor %}
     {% endif %}
     {% if accountData['AccountID'][0] == "2" or accountData['AccountID'][0] == "3" %}
-    <h1>任教課程</h1>
+    <h1>Teaching courses</h1>
     <hr>
         {% for semester in PreloadData['semesters'] %}
         <h2>{{semester}}</h2>

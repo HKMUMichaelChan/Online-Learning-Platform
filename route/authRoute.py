@@ -1,4 +1,4 @@
-
+from utilities import CommonVar
 from datetime import datetime, timedelta
 import jwt
 from werkzeug.security import check_password_hash
@@ -8,7 +8,7 @@ from utilities import jsonIO, utilities
 
 
 
-def load(app, accountData):
+def load(app):
     @app.route("/")
     def index():
         authError = utilities.authVerify(app, 1)
@@ -26,9 +26,8 @@ def load(app, accountData):
             return authError
         else:
 
-            global accountData
-            accountData = jsonIO.load_data("data/accountData.json")
-            data = [item for item in accountData if item["AccountID"] == session['username'] ][0]
+            CommonVar.accountData = jsonIO.load_data("data/accountData.json")
+            data = [item for item in CommonVar.accountData if item["AccountID"] == session['username'] ][0]
 
             return render_template('home.html',accountData = data, role = session['username'][0] )
             

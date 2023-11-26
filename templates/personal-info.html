@@ -12,18 +12,18 @@
 
 
               
-                <h1 style="flex: 1;">个人资料</h1>
+                <h1 style="margin-right: 5px;">Personal Information</h1>
 
                 <div class="buttonsArea" style="flex: 1;">
-                  <button onclick="editText()" class="editbutton" >編輯</button>
+                  <button onclick="editText()" class="editbutton" >Edit</button>
                 </div>
 
             </td>
         
           <tr>
 
-            <th>项目</th>
-            <th colspan="2">详情</th>
+            <th>Type</th>
+            <th colspan="2">Details</th>
           </tr>
           <tr>
             
@@ -98,17 +98,17 @@
               <input type="text" id="PhoneNofield" class="input-field" value="{{accountData['PhoneNo']}}">
 
             </td>
-            
+            <td class="buttonTD"><button onclick="openPopup()">上傳頭像</button></td>
           </tr>
           <tr>
             <td>Special Educational Needs</td>
-            <td >
+            <td colspan="2">
               <span class="text" id="SpecialEducationalNeedsText">{{accountData['SpecialEducationalNeeds']}}</span>
               {% if role == "3"%}
               <input type="text" id="SpecialEducationalNeedsfield" class="input-field" value="{{accountData['SpecialEducationalNeeds']}}">
               {% endif %}
             </td>
-            <td class="buttonTD"><button onclick="openPopup()">上傳頭像</button></td>
+
           </tr>
           <tr>
             <td>Nationality</td>
@@ -137,6 +137,8 @@
             window.opener.location.reload();  // 重新加载父窗口页面
             window.close();  // 关闭弹出窗口
           }
+
+
             let textElements = document.querySelectorAll('.text');
             let inputElements = document.querySelectorAll('.input-field');
             let editButton = document.querySelector('.editbutton');
@@ -167,9 +169,11 @@
 
             let NationalityTexts = document.querySelector('#NationalityTexts');
             let Nationalityfield = document.querySelector('#Nationalityfield');
+
             
 
             function editText() {
+
               for (let textElement of textElements) {
                 textElement.style.display = 'none';
               }

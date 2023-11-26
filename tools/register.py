@@ -2,13 +2,16 @@ import pandas as pd
 import json
 from datetime import datetime
 from werkzeug.security import generate_password_hash
+from utilities import CommonVar, jsonIO
 
 def singelReg(AccountID, LastName, FirstName, Sex, HKId,  Birthday, Address, PhoneNo, SpecialEducationalNeeds, Nationality):
     with open("data/auth.json", 'r') as file:
         data  = json.load(file)
 
-    with open("data/accountData.json", 'r') as file:
-        accountData  = json.load(file)
+
+    CommonVar.accountData = jsonIO.load_data("data/accountData.json")
+    with open("data/academicRecordsData.json", 'r') as file:
+        ARdata  = json.load(file)
 
     user = []
     for dat in data:
@@ -24,7 +27,7 @@ def singelReg(AccountID, LastName, FirstName, Sex, HKId,  Birthday, Address, Pho
             'username': str(AccountID),
             'password': str(hashed_password)
         })
-        accountData.append({
+        CommonVar.accountData.append({
                 'AccountID' : str(AccountID),
                 'LastName' : LastName,
                 'FirstName' : FirstName,
@@ -41,8 +44,19 @@ def singelReg(AccountID, LastName, FirstName, Sex, HKId,  Birthday, Address, Pho
 
         })
         print("已新增 " + str(AccountID))
-        with open("data/accountData.json", 'w') as file:
-            json.dump(accountData, file, indent=4)
+        print("已新增 " + str(AccountID))
+        ARdata.append({
+                    "AccountID": str(AccountID),
+                    "general":{
+
+                    },
+                    "others":[
+                        
+                    ]
+        })
+        with open("data/academicRecordsData.json", 'w') as ARfile:
+            json.dump(ARdata, ARfile, indent=4)
+        jsonIO.save_data(CommonVar.accountData, "data/accountData.json")
         with open("data/auth.json", 'w') as file:
             json.dump(data, file, indent=4)
 
@@ -72,42 +86,57 @@ def excel_to_json(file_path ):
         data  = json.load(file)
 
     with open("data/accountData.json", 'r') as file:
-        accountData  = json.load(file)
-
+        CommonVar.accountData  = json.load(file)
+        
+    with open("data/academicRecordsData.json", 'r') as file:
+        ARdata  = json.load(file)
     user = []
     for dat in data:
         user.append(dat['username'])
-    
-    for AccountID, HKId ,lastname ,firstname, sex,birthday, Address, PhoneNo, SpecialEducationalNeeds, Nationality in zip(AccountIDs, HKIds ,lastnames ,firstnames, sexs, birthdays, Addresss, PhoneNos, SpecialEducationalNeedss, Nationalitys):
-        password = HKId.replace("(","")
-        password = password.replace(")","")
-        hashed_password = generate_password_hash(password[:-2])
+    with open("data/accountData.json", 'w') as Accountfile:
+        with open("data/auth.json", 'w') as Authfile:
+            with open("data/academicRecordsData.json", 'w') as ARfile:
+            
+                for AccountID, HKId ,lastname ,firstname, sex,birthday, Address, PhoneNo, SpecialEducationalNeeds, Nationality in zip(AccountIDs, HKIds ,lastnames ,firstnames, sexs, birthdays, Addresss, PhoneNos, SpecialEducationalNeedss, Nationalitys):
+                    password = HKId.replace("(","")
+                    password = password.replace(")","")
+                    hashed_password = generate_password_hash(password[:-2])
 
-        if str(AccountID) not in user:
-            data.append({
-                'username': str(AccountID),
-                'password': str(hashed_password)
-            })
-            accountData.append({
-                    'AccountID' : str(AccountID),
-                    'LastName' : lastname,
-                    'FirstName' : firstname,
-                    'Sex': sex,
-                    'HKID':HKId,
-                    'Birthday' : str(birthday),
-                    'Address' : Address,
-                    'PhoneNo' : PhoneNo,
-                    'SpecialEducationalNeeds' : SpecialEducationalNeeds,
-                    'Nationality' : Nationality,
-                    "Email" : "/",
-                    "study" : [],
-                    "teache" : []
-            })
-            print("已新增 " + str(AccountID))
-            with open("data/accountData.json", 'w') as file:
-                json.dump(accountData, file, indent=4)
-            with open("data/auth.json", 'w') as file:
-                json.dump(data, file, indent=4)
+                    if str(AccountID) not in user:
+                        data.append({
+                            'username': str(AccountID),
+                            'password': str(hashed_password)
+                        })
+                        CommonVar.accountData.append({
+                                'AccountID' : str(AccountID),
+                                'LastName' : lastname,
+                                'FirstName' : firstname,
+                                'Sex': sex,
+                                'HKID':HKId,
+                                'Birthday' : str(birthday),
+                                'Address' : Address,
+                                'PhoneNo' : PhoneNo,
+                                'SpecialEducationalNeeds' : SpecialEducationalNeeds,
+                                'Nationality' : Nationality,
+                                "Email" : "/",
+                                "study" : {},
+                                "teache" : {}
+                        })
+                        print("已新增 " + str(AccountID))
+                        ARdata.append({
+                                    "AccountID": str(AccountID),
+                                    "general":{
+
+                                    },
+                                    "others":[
+                                        
+                                    ]
+                        })
+
+                json.dump(ARdata, ARfile, indent=4)
+                json.dump(CommonVar.accountData, Accountfile, indent=4)
+                
+                json.dump(data, Authfile, indent=4)
     return True
         
     

@@ -26,12 +26,22 @@
           {% for course in academicRecordsData['general'][semester] %}
               <td>{{course['courseCode']}}</td>
               <td>{{course['courseName']}}</td>
-              <td>{{course['grade']}}</td>
+              <td><span id="GPA">{{course['grade']}}</span></td>
               </tr>
               <tr>
           {% endfor %} 
         </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td style="text-align: right;">Semester GPA :</td>
+          <td><span id="SGPA">test</span></td>
+        </tr>
         {% endfor %}
+        <tr>
+          <td colspan="2"></td>
+          <td style="text-align: right;">CPGA :</td>
+          <td style="border: 2px double black;"><span id="CGPA"></span></td>
+        </tr>
     </table>
     <h2>Others</h2>
     <table class="sub-container">
@@ -50,6 +60,92 @@
     </table>
 </div>
 <script>
+
+// 等待整个页面加载完成后执行
+window.addEventListener('load', function() {
+  // 获取所有的 <span> 元素
+  var spans = document.getElementsByTagName('span');
+
+  // 初始化变量
+  var t_CCredits = 0;
+  var t_CGPA = 0;
+  var t_SCredits = 0;
+  var t_SGPA = 0;
+  var CCount = 0;
+  var SCount = 0;
+
+  // 遍历每个 <span> 元素
+  Array.from(spans).forEach(function(span) {
+    // 获取当前 <span> 元素的 id
+    var id = span.id;
+
+    // 如果 id 是 "GPA"
+    if (id === 'GPA') {
+      // 获取当前 <span> 元素的文本内容
+      var grade = span.textContent.trim();
+
+      // 调用 calculateGPA() 函数并传递成绩作为参数
+      var gpa = calculateGPA(grade);
+
+      // 使用计算得到的 GPA 结果替换文本内容
+      span.textContent = grade + " (" + gpa.toFixed(2) + ")";
+
+      // 累计总学分和总绩点
+      t_SCredits += 1;
+      t_CCredits += 1;
+
+      t_SGPA += gpa;
+      t_CGPA += gpa;
+
+      SCount += 1;
+      CCount += 1;
+    }
+
+    // 如果 id 是 "SGPA"
+    if (id === 'SGPA') {
+      // 计算加权平均数
+      var sgpa = t_SGPA / SCount;
+      t_SGPA = 0;
+      SCount = 0;
+      // 将计算得到的 SGPA 结果放入 <span> 元素中
+      span.textContent = sgpa.toFixed(2);;
+    }
+
+    // 如果 id 是 "CGPA"
+    if (id === 'CGPA') {
+      // 计算所有 GPA 的加权平均数
+      var cgpa = t_CGPA / CCount;
+
+      // 将计算得到的 CGPA 结果放入 <span> 元素中
+      span.textContent = cgpa.toFixed(2);;
+    }
+  });
+});
+      
+
+
+    function calculateGPA(grade) {
+      switch (grade) {
+        case "A":
+          return 4.0;
+        case "A-":
+          return 3.7;
+        case "B+":
+          return 3.3;
+        case "B":
+          return 3.0;
+        case "B-":
+          return 2.7;
+        case "C+":
+          return 2.3;
+        case "C":
+          return 2.0;      
+        default:
+          return 0.0; // Failed
+      }
+    }
+
+
 
 </script>
 

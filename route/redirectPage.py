@@ -15,7 +15,7 @@ def redirectPage(target, message):
     if target == "/login":
         return render_template('transition.html', target="/login", message = message)
     elif target == "/logout":
-        return render_template('transition.html', target="/login", message = "賬號已登出")
+        return render_template('transition.html', target="/login", message = "Account logged out")
     elif target == "/adminTool":
         return render_template('transition.html', target="/adminTool", message = message)
     elif target == "redirectBack":

@@ -1,5 +1,5 @@
 
-
+from utilities import CommonVar
 import os
 from flask import render_template, render_template_string, request, session
 from werkzeug.utils import secure_filename
@@ -7,7 +7,7 @@ from utilities import jsonIO, utilities
 
 
 
-def load(app, accountData):
+def load(app):
     @app.route("/personal-info")
     @app.route("/personal-info/")
     def personal_info():
@@ -16,10 +16,9 @@ def load(app, accountData):
             return authError
         else:
                 ###
-            global accountData
-            accountData = jsonIO.load_data("data/accountData.json")
+
             session['token'] = utilities.tokenAlive(app)
-            data = [item for item in accountData if item["AccountID"] == session['username'] ][0]
+            data = [item for item in CommonVar.accountData if item["AccountID"] == session['username'] ][0]
             if os.path.exists("static/accountIcon/" + session['username'] + ".jpg"):
                 icon_path = "/static/accountIcon/" + session['username'] + ".jpg"
             else:
@@ -35,7 +34,7 @@ def load(app, accountData):
         else:
                 ###
                 session['token'] = utilities.tokenAlive(app)
-                data = [item for item in accountData if item["AccountID"] == accountID ][0]
+                data = [item for item in CommonVar.accountData if item["AccountID"] == accountID ][0]
                 if os.path.exists("static/accountIcon/" + accountID + ".jpg"):
                     icon_path = "/static/accountIcon/" + accountID + ".jpg"
                 else:
@@ -87,7 +86,7 @@ def load(app, accountData):
                     pass
 
 
-                data = [item for item in accountData if item["AccountID"] == session['username'] ][0]
+                data = [item for item in CommonVar.accountData if item["AccountID"] == session['username'] ][0]
 
                 return render_template('home.html',accountData = data )
         
@@ -97,8 +96,8 @@ def load(app, accountData):
         if authError is not None:
             return authError
         else:
-                global accountData
-                data = [item for item in accountData if item["AccountID"] == session['username'] ][0]
+
+                data = [item for item in CommonVar.accountData if item["AccountID"] == session['username'] ][0]
 
                 # decoded_text = unquote(request.get_data())
 
@@ -106,10 +105,9 @@ def load(app, accountData):
                 PostData :dict= request.json
                 
 
-                    
-                accountData = jsonIO.load_data("data/accountData.json")
+
                 accountID = session['username']
-                for item in accountData:
+                for item in CommonVar.accountData:
                     if item["AccountID"] == accountID:
                         print("acc found")
                         # 在匹配的字典中进行更新
@@ -118,7 +116,9 @@ def load(app, accountData):
                                 if key == orginalKey:
                                     print("key found")
                                     item[orginalKey] = PostData[key]
-                jsonIO.save_data(accountData, "data/accountData.json")
+                jsonIO.save_data(CommonVar.accountData, "data/accountData.json")
+                CommonVar.accountData = jsonIO.load_data("data/accountData.json")
+
 
 
                 return render_template('home.html',accountData = data )
@@ -129,8 +129,8 @@ def load(app, accountData):
         if authError is not None:
             return authError
         else:
-                global accountData
-                data = [item for item in accountData if item["AccountID"] == AccountID ][0]
+
+                data = [item for item in CommonVar.accountData if item["AccountID"] == AccountID ][0]
 
                 # decoded_text = unquote(request.get_data())
 
@@ -139,9 +139,9 @@ def load(app, accountData):
                 
 
                     
-                accountData = jsonIO.load_data("data/accountData.json")
+                CommonVar.accountData = jsonIO.load_data("data/accountData.json")
 
-                for item in accountData:
+                for item in CommonVar.accountData:
                     if item["AccountID"] == AccountID:
                         print("acc found")
                         # 在匹配的字典中进行更新
@@ -150,7 +150,8 @@ def load(app, accountData):
                                 if key == orginalKey:
                                     print("key found")
                                     item[orginalKey] = PostData[key]
-                jsonIO.save_data(accountData, "data/accountData.json")
+                jsonIO.save_data(CommonVar.accountData, "data/accountData.json")
+                CommonVar.accountData = jsonIO.load_data("data/accountData.json")
 
 
                 return render_template('home.html',accountData = data )
@@ -199,6 +200,6 @@ def load(app, accountData):
                     pass
 
 
-                data = [item for item in accountData if item["AccountID"] == AccountID ][0]
+                data = [item for item in CommonVar.accountData if item["AccountID"] == AccountID ][0]
 
                 return render_template('home.html',accountData = data )

@@ -1,0 +1,139 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+
+ tr:hover td {
+    background-color: #ffffff; /* 鼠标悬停时的背景颜色 */
+  }
+
+tr:hover td.semester {
+    background-color: initial; /* 恢复初始背景颜色 */
+  }
+
+.edit{
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+/* 自定义下拉选择框样式 */
+select {
+    appearance: none;
+
+    padding: 8px 16px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  
+  /* 鼠标悬停效果 */
+  select:hover {
+    border-color: #999;
+  }
+  
+  /* 聚焦效果 */
+  select:focus {
+    outline: none;
+    border-color: #555;
+    box-shadow: 0 0 4px rgba(85, 85, 85, 0.3);
+  }
+  
+  /* 禁用状态 */
+  select:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  /* 下拉箭头图标 */
+  select::after {
+    content: '\25BE';
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+  
+  /* 禁用状态下的下拉箭头图标 */
+  select:disabled::after {
+    color: #999;
+  }
+  
+
+  /* 自定义选项样式 */
+select option {
+    padding: 8px 16px;
+    font-size: 14px;
+    background-color: #fff;
+    color: #555;
+  }
+  
+  /* 鼠标悬停效果 */
+  select option:hover {
+    background-color: #f2f2f2;
+  }
+  
+  /* 选中状态 */
+  select option:checked {
+    background-color: #e0e0e0;
+    color: #333;
+  }
+  
+  /* 禁用状态 */
+  select option:disabled {
+    background-color: #f7f7f7;
+    color: #999;
+  }
+
+ .lgBtn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .lgBtn:hover {
+    background-color: #45a049;
+  }
+
+  /* 基本链接样式 */
+/* 圆形按钮样式 */
+a.round-button {
+    display: inline-block;
+    width: 40px; /* 调整按钮的宽度和高度以适应需求 */
+    height: 40px;
+    border-radius: 50%; /* 将边框设置为圆形 */
+    background-color: #007bff; /* 按钮的背景颜色 */
+    color: #fff; /* 按钮的文本颜色 */
+    text-align: center;
+    text-decoration: none;
+    line-height: 40px; /* 将文本垂直居中 */
+    margin: 5px;
+  }
+  
+  /* 悬停效果 */
+  a.round-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* 激活状态（被点击后） */
+  a.round-button:active {
+    background-color: #003080;
+  }

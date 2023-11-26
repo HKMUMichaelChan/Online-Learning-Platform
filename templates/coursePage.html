@@ -18,7 +18,7 @@
         <div class="horizontal">
             <h2>announcements</h2>
             {% if accountData['AccountID'][0] == "3" or accountData['AccountID'][0] == "2" %}
-                <button class="lgBtn" onclick="createAnnouncementForm()">發佈新資源</button>
+                <button class="lgBtn" onclick="createAnnouncementForm()">Publish announcement</button>
             {% endif %}
         </div>
 
@@ -28,7 +28,7 @@
                 <div class="horizontal">
                 <h3>{{ announcement['title'] }}</h3>
                     {% if accountData['AccountID'][0] == "3" or accountData['AccountID'][0] == "2" %}
-                        <button onclick="removeAnnouncment('{{loop.index0}}')">移除</button>
+                        <button onclick="removeAnnouncment('{{loop.index0}}')">Remove</button>
                     {% endif %}
                 </div>
                 <hr>
@@ -44,7 +44,7 @@
         <div class="horizontal">
         <h2>Resourses</h2>
             {% if accountData['AccountID'][0] == "3" or accountData['AccountID'][0] == "2" %}
-                <button class="lgBtn" onclick="createResourseForm()">發佈新資源</button>
+                <button class="lgBtn" onclick="createResourseForm()">Publish resource</button>
             {% endif %}
         </div>
         <div class = "resourses"> </div>
@@ -53,7 +53,7 @@
                 <div class="horizontal">
                 <h3>{{ resourse['title'] }}</h3>
                     {% if accountData['AccountID'][0] == "3" or accountData['AccountID'][0] == "2" %}
-                        <button onclick="removeResourse('{{loop.index0}}')">移除</button>
+                        <button onclick="removeResourse('{{loop.index0}}')">Remove</button>
                     {% endif %}
                 </div>
                 <hr>
@@ -74,7 +74,7 @@
         <div class="horizontal">
         <h2>Assignments</h2>
         {% if accountData['AccountID'][0] == "3" or accountData['AccountID'][0] == "2" %}
-            <button class="lgBtn" onclick="createAssignmentForm()">發佈新作業</button>
+            <button class="lgBtn" onclick="createAssignmentForm()">Post assignment</button>
         {% endif %}
 
 
@@ -85,7 +85,7 @@
                 <div class="horizontal">
                 <h3>{{ assignment['title'] }}</h3>
                     {% if accountData['AccountID'][0] == "3" or accountData['AccountID'][0] == "2" %}
-                        <button onclick="removeAssignment('{{loop.index0}}')">移除</button>
+                        <button onclick="removeAssignment('{{loop.index0}}')">Remove</button>
                     {% endif %}
                 </div>
                 <hr>
@@ -93,7 +93,7 @@
                 {% for file in assignment['files'] %}
                     <a href="{{PreloadData['courseCode']}}/files/{{file}}">{{file}}</a>
                 {% endfor %}
-                <button class="lgBtn" onclick="assignmentForm()">提交</button>
+                <button class="lgBtn" onclick="assignmentForm()">Submit</button>
             </div> 
         {% endfor %}
         {% if PreloadData['assignments'] == [] %}

@@ -73,11 +73,11 @@
                 {% endif %}
                 
                 {% if AccRole == "1"%}
-                學生
+                Student
                 {% endif %}
 
                 {% if AccRole == "2"%}
-                教師
+                Teacher
                 {% endif %}
             </td>
           </tr>
@@ -98,7 +98,7 @@
               <input type="text" id="PhoneNofield" class="input-field" value="{{accountData['PhoneNo']}}">
 
             </td>
-            <td class="buttonTD"><button onclick="openPopup()">上傳頭像</button></td>
+            <td class="buttonTD"><button onclick="openPopup()">Upload Avatar</button></td>
           </tr>
           <tr>
             <td>Special Educational Needs</td>
@@ -124,9 +124,9 @@
           </tr>
           <tr>
             <td>
-              <button id="Nationality" type="submit" onclick="submitEdit(this.id)" class="submit-button" style="display: none;">提交</button>
+              <button id="Nationality" type="submit" onclick="submitEdit(this.id)" class="submit-button" style="display: none;">Submit</button>
             </form>
-              <button onclick="cancelEdit()" class="cancel-button" style="display: none;">取消</button>
+              <button onclick="cancelEdit()" class="cancel-button" style="display: none;">Cancel</button>
             </td>
           </tr>
         </table>
@@ -134,8 +134,8 @@
 
         <script>
             function closePopupAndReload() {
-            window.opener.location.reload();  // 重新加载父窗口页面
-            window.close();  // 关闭弹出窗口
+            window.opener.location.reload();  
+            window.close(); 
           }
 
 
@@ -251,8 +251,6 @@
                 }
 
 
-                // let updatedText = textElement.textContent;
-                // inputElement.value = updatedText;
 
 
                 editButton.style.display = 'inline-block';
@@ -294,7 +292,6 @@
                 const path = window.location.pathname;
                 const parts = path.split('/');
 
-                // 获取路径中的最后一个部分（c）
                 const lastPart = parts[parts.length - 1];
                 console.log(lastPart)
                 if (lastPart != 'personal-info'){
@@ -309,7 +306,7 @@
                     location.reload();
                   })
                   .catch(error => {
-                    console.log('请求发生错误:', error);
+                    console.log('An error occurred in the request:', error);
                   })
                 }
                 else{
@@ -324,7 +321,7 @@
                     location.reload();
                   })
                   .catch(error => {
-                    console.log('请求发生错误:', error);
+                    console.log('An error occurred in the request:', error);
                   })
                 }
 
@@ -335,14 +332,14 @@
                 var html = `
                   <html>
                   <head>
-                    <title>弹出窗口表单</title>
+                    <title>Avatar</title>
                   </head>
                   <body>
                       <div class="popup-form">
-                      <h1>上传文件</h1>
+                      <h1>Upload Avatar</h1>
                       <form action="/upload" method="post" enctype="multipart/form-data" onsubmit="closePopupAndReload()">
                           <input type="file" name="file">
-                          <button type="submit">上传</button>
+                          <button type="submit">Upload</button>
                       </form>
                       </div>
                   </body>
@@ -355,14 +352,14 @@
                 var html = `
                   <html>
                   <head>
-                    <title>弹出窗口表单</title>
+                    <title>Avatar</title>
                   </head>
                   <body>
                       <div class="popup-form">
-                      <h1>上传文件</h1>
+                      <h1>Upload Avatar</h1>
                       <form action="/upload/{{accountData['AccountID']}}" method="post" enctype="multipart/form-data" onsubmit="closePopupAndReload()">
                           <input type="file" name="file">
-                          <button type="submit">上传</button>
+                          <button type="submit">Upload</button>
                       </form>
                       </div>
                   </body>

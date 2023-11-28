@@ -231,7 +231,7 @@
         button.textContent = text;
 
         button.addEventListener("click", function() {
-            window.location.href = url; // 设置独立的重定向地址
+            window.location.href = url; 
         });
 
         return button;
@@ -242,10 +242,6 @@
       fetch('/GetAccountData')
         .then(response => response.json())
         .then(jsonData => {
-            // jsonData = JSON.stringify(jsonData);
-            
-        //   document.getElementById("json-data").innerText = jsonData;
-            
             var results = [];
             var resultsID = [];
             for (var i = 0; i < jsonData.length; i++) {

@@ -67,7 +67,7 @@ def initialize():
                     {
                         "AccountID": "30000000",
                         "general":{
-                            "2023-Autumn":[
+                            # "2023-Autumn":[
                                 # {
                                 #     "courseCode" : "100",
                                 #     "courseName" : "name",
@@ -90,7 +90,7 @@ def initialize():
                                 #     "courseName" : "name",
                                 #     "grade" : "D"
                                 # }
-                            ]
+                            # ]
                         },
                         "others":[
                             {

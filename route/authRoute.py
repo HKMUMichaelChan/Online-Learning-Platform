@@ -68,7 +68,7 @@ def load(app):
                 users.append(dat['username'])
             # 檢查使用者名稱是否存在
             if username not in users:
-                return redirectPage("/login", "該用戶名稱不存在，請聯係IT人員協助。")
+                return redirectPage("/login", "This username does not exist, please contact IT staff for assistance。")
 
             # 檢查密碼是否匹配
             for dat in auth:
@@ -76,7 +76,7 @@ def load(app):
                     hash = dat['password']
 
             if not check_password_hash(hash, password):
-                return redirectPage("/login", "密碼錯誤，請重新輸入。\n如忘記密碼，請聯係IT人員協助。")
+                return redirectPage("/login", "Wrong password, please re-enter. \nIf you forget your password, please contact IT staff for assistance.")
 
             session['username'] = username
             # 產生 JWT 令牌並設定過期時間為 30 分鐘

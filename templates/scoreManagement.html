@@ -71,7 +71,6 @@ function updatePagination() {
       html += '<option value="C+" ' + (modifiedScore === 'C+' ? 'selected' : '') + '>C+</option>';
       html += '<option value="C" ' + (modifiedScore === 'C' ? 'selected' : '') + '>C</option>';
       html += '<option value="B+" ' + (modifiedScore === 'Failed' ? 'selected' : '') + '>Failed</option>';
-      // 添加其他选项
       html += '</select>';
       html += '</td>';
       html += '</tr>';
@@ -112,7 +111,6 @@ function handleSelectChange(select) {
 
 function submitChanges() {
   saveModifiedData();
-//   console.log(modifiedData)
     fetch('score/post' ,{
         method: 'POST',
         headers: {

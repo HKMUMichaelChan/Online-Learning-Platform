@@ -133,28 +133,28 @@
             .then(response => {window.location.reload()})
                 }
         function createAnnouncementForm(){
-            var url = "/course/{{PreloadData['semester']}}/{{PreloadData['courseCode']}}/announcement";  // 指定新窗口的 URL
-            var windowName = 'NewWindow';  // 新窗口的名称，可以是一个唯一的字符串，用于标识窗口
+            var url = "/course/{{PreloadData['semester']}}/{{PreloadData['courseCode']}}/announcement"; 
+            var windowName = 'NewWindow';  
 
             window.open(url, windowName, "width=720,height=480");
         }
 
         function createResourseForm(){
-            var url = "/course/{{PreloadData['semester']}}/{{PreloadData['courseCode']}}/resourses";  // 指定新窗口的 URL
-            var windowName = 'NewWindow';  // 新窗口的名称，可以是一个唯一的字符串，用于标识窗口
+            var url = "/course/{{PreloadData['semester']}}/{{PreloadData['courseCode']}}/resourses"; 
+            var windowName = 'NewWindow';  
 
             window.open(url, windowName, "width=720,height=480");
         }
 
         function createAssignmentForm(){
-            var url = "/course/{{PreloadData['semester']}}/{{PreloadData['courseCode']}}/assignmentForm";  // 指定新窗口的 URL
-            var windowName = 'NewWindow';  // 新窗口的名称，可以是一个唯一的字符串，用于标识窗口
+            var url = "/course/{{PreloadData['semester']}}/{{PreloadData['courseCode']}}/assignmentForm";  
+            var windowName = 'NewWindow';  
 
             window.open(url, windowName, "width=720,height=480");
         }
         function assignmentForm(){
-            var url = "/course/{{PreloadData['semester']}}/{{PreloadData['courseCode']}}/assignment";  // 指定新窗口的 URL
-            var windowName = 'NewWindow';  // 新窗口的名称，可以是一个唯一的字符串，用于标识窗口
+            var url = "/course/{{PreloadData['semester']}}/{{PreloadData['courseCode']}}/assignment";  
+            var windowName = 'NewWindow';  
 
             window.open(url, windowName, "width=720,height=480");
           
@@ -221,15 +221,6 @@
                   uploadWindow.document.head.appendChild(nestedScript);
 
 
-            // uploadWindow.document.close();
-
-            // var form = uploadWindow.document.querySelector("form");
-            // form.addEventListener("submit", function(event) {
-            //     event.preventDefault();
-            //     var homeworkFile = uploadWindow.document.getElementById("homeworkFile").files[0];
-            //     // 在此处编写上传已完成作业的逻辑
-            //     console.log("已选择文件：" + homeworkFile.name);
-            // });
             }
 
     </script>

@@ -133,6 +133,9 @@
 
 
         <script>
+          window.onload = function() {
+            document.title = "Personal info";
+          };
             function closePopupAndReload() {
             window.opener.location.reload();  
             window.close(); 
@@ -333,13 +336,15 @@
                   <html>
                   <head>
                     <title>Avatar</title>
+                    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/avatar.css') }}">
                   </head>
                   <body>
                       <div class="popup-form">
                       <h1>Upload Avatar</h1>
                       <form action="/upload" method="post" enctype="multipart/form-data" onsubmit="closePopupAndReload()">
                           <input type="file" name="file">
-                          <button type="submit">Upload</button>
+                          <br><br>
+                          <button class="lgBtn" type="submit">Upload</button>
                       </form>
                       </div>
                   </body>
@@ -353,13 +358,15 @@
                   <html>
                   <head>
                     <title>Avatar</title>
+                    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/avatar.css') }}">
                   </head>
                   <body>
                       <div class="popup-form">
                       <h1>Upload Avatar</h1>
                       <form action="/upload/{{accountData['AccountID']}}" method="post" enctype="multipart/form-data" onsubmit="closePopupAndReload()">
                           <input type="file" name="file">
-                          <button type="submit">Upload</button>
+                          <br><br>
+                          <button class="lgBtn" type="submit">Upload</button>
                       </form>
                       </div>
                   </body>

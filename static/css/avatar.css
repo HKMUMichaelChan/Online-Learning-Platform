@@ -1,0 +1,76 @@
+/* 表单样式 */
+form {
+    width: 100%;
+    max-width: 400px; /* 调整表单的最大宽度以适应需求 */
+    margin: 0 auto;
+  }
+  
+  /* 表单标题样式 */
+  form h2 {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  
+  /* 表单字段容器样式 */
+  form .form-group {
+    margin-bottom: 16px;
+  }
+  
+  /* 标签样式 */
+  form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  /* 输入框样式 */
+  form input{
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* 文本框样式 */
+  form textarea {
+    resize: vertical; /* 可调整垂直尺寸 */
+  }
+  
+  /* 提交按钮样式 */
+  form button[type="submit"] {
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  /* 按钮悬停效果 */
+  form button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  /* 按钮激活状态（被点击后） */
+  form button[type="submit"]:active {
+    background-color: #003080;
+  }
+
+
+  .lgBtn{
+    background: linear-gradient(135deg, #4CAF50 70%,#4CAF50 75%, #2961dbef 85%,  #2961dbef 100%);
+    background-size: 200%;
+    background-position: left right;
+    transition: background-position 0.3s ease-in-out;
+  }
+  
+  .lgBtn:hover{
+  
+  
+    background-position: right bottom;
+  
+  
+  }
+  

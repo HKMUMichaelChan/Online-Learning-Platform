@@ -106,6 +106,9 @@
         
     </div>
     <script>
+    window.onload = function() {
+      document.title = "{{PreloadData['courseCode']}} {{PreloadData['courseName']}}";
+    };
         function scoreManagement(){
             location.assign("/course/{{PreloadData['semester']}}/{{PreloadData['courseCode']}}/score")
         }
@@ -135,33 +138,38 @@
         function createAnnouncementForm(){
             var url = "/course/{{PreloadData['semester']}}/{{PreloadData['courseCode']}}/announcement"; 
             var windowName = 'NewWindow';  
-
-            window.open(url, windowName, "width=720,height=480");
+            const left = (window.innerWidth - 720) / 2;
+            const top = (window.innerHeight - 480) / 2;
+            var uploadWindow = window.open(url, '', `width=720, height=480, left=${left}, top=${top}`);
         }
 
         function createResourseForm(){
             var url = "/course/{{PreloadData['semester']}}/{{PreloadData['courseCode']}}/resourses"; 
             var windowName = 'NewWindow';  
-
-            window.open(url, windowName, "width=720,height=480");
+            const left = (window.innerWidth - 720) / 2;
+            const top = (window.innerHeight - 480) / 2;
+            var uploadWindow = window.open(url, '', `width=720, height=480, left=${left}, top=${top}`);
         }
 
         function createAssignmentForm(){
             var url = "/course/{{PreloadData['semester']}}/{{PreloadData['courseCode']}}/assignmentForm";  
             var windowName = 'NewWindow';  
-
-            window.open(url, windowName, "width=720,height=480");
+            const left = (window.innerWidth - 720) / 2;
+            const top = (window.innerHeight - 480) / 2;
+            var uploadWindow = window.open(url, '', `width=720, height=480, left=${left}, top=${top}`);
         }
         function assignmentForm(){
             var url = "/course/{{PreloadData['semester']}}/{{PreloadData['courseCode']}}/assignment";  
             var windowName = 'NewWindow';  
-
-            window.open(url, windowName, "width=720,height=480");
+            const left = (window.innerWidth - 720) / 2;
+            const top = (window.innerHeight - 480) / 2;
+            var uploadWindow = window.open(url, '', `width=720, height=480, left=${left}, top=${top}`);
           
         }
         function openUploadWindow() {
-
-            var uploadWindow = window.open("", "_blank", "width=720,height=480");
+            const left = (window.innerWidth - 720) / 2;
+            const top = (window.innerHeight - 480) / 2;
+            var uploadWindow = window.open(url, '', `width=720, height=480, left=${left}, top=${top}`);
             loadsubhtml(uploadWindow);
         }
         

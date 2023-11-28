@@ -78,8 +78,8 @@ def initialize():
                                 #     "courseName" : "namawdwe",
                                 #     "grade" : "B"
                                 # }
-                            ],
-                            "2024-Spring":[
+                            # ],
+                            # "2024-Spring":[
                                 # {
                                 #     "courseCode" : "course3",
                                 #     "courseName" : "name",

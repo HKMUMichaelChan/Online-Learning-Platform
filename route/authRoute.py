@@ -1,3 +1,4 @@
+import json
 from utilities import CommonVar
 from datetime import datetime, timedelta
 import jwt
@@ -5,7 +6,7 @@ from werkzeug.security import check_password_hash
 from flask import redirect, render_template, request, session, url_for
 from route.redirectPage import redirectPage
 from utilities import jsonIO, utilities
-
+from werkzeug.security import generate_password_hash
 
 
 def load(app):
@@ -31,9 +32,32 @@ def load(app):
 
             return render_template('home.html',accountData = data, role = session['username'][0] )
             
+    @app.route("/initialize", methods=['GET', 'POST'])
+    def initialize():
+        if request.method == 'POST':
+            password = request.form['password']
+
+            with open("data/auth.json", 'w') as file:
+                hashed_password = generate_password_hash(password)
+                data = []
+                
+                data.append({
+                    'username': '30000000',
+                    'password': str(hashed_password)
+                })
+                print(f"密碼已設定，管理員用戶名為(\"3\" + 7個0)'30000000'")
+
+                CommonVar.initialize = False
+                json.dump(data, file)
+            return redirectPage('/login', "The password has been set. Please Login now")
+        else:
+            return render_template('initialize.html')
 
     @app.route("/login", methods=['GET', 'POST'])
     def login():
+        if CommonVar.initialize == True:
+            return redirect(url_for('initialize'))
+
         if request.method == 'POST':
             username = request.form['username']
             password = request.form['password']

@@ -2,6 +2,7 @@ import json
 import os
 from werkzeug.security import generate_password_hash
 
+from utilities import CommonVar
 
 
 
@@ -23,21 +24,8 @@ def initialize():
             
             
             if file_name == files[0]:
-                with open(file_name, 'w') as file:
-                    print(f"文件 '{file_name}' 不存在，正在初始化文件。請輸入初始管理員密碼：\n")
-                    password = input("<Password of Administrator>")
-                    hashed_password = generate_password_hash(password)
-                    data = []
-                    
-                    data.append({
-                        'username': '30000000',
-                        'password': str(hashed_password)
-                    })
-                    print(f"密碼已設定，管理員用戶名為(\"3\" + 7個0)'30000000'")
+                    CommonVar.initialize = True
 
-                    
-                    json.dump(data, file)
-                    print(f"文件 '{file_name}' 已建立")
             elif file_name == files[1]:
                 accountData = []
                 accountData.append({

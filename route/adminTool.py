@@ -96,6 +96,8 @@ def load(app):
             form = request.form.to_dict()
             course = jsonIO.load_data('data\courseCodes.json')
             course[form['courseCode']] = form['courseName']
+            print(type(course))
+            print(type(form))
             jsonIO.save_data(course, 'data\courseCodes.json')
 
             return redirect(url_for('adminTool'))

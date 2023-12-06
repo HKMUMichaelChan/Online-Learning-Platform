@@ -163,7 +163,7 @@ def load(app):
                 
                 if Resourse['files'] != []:
                     for file in Resourse['files']:
-                        os.remove("data/course/2023-Autumn/100/files/" + file)
+                        os.remove(f"data/course/{Semester}/{CourseCode}/files/" + file)
             courseResourse['resourses'].pop(int(index))
             jsonIO.save_data(courseResourse , f"data/course/{Semester}/{CourseCode}/data.json")
 
@@ -220,11 +220,13 @@ def load(app):
             
     @app.route("/course/<Semester>/<CourseCode>/assignment")
     def assignment(Semester,CourseCode):
-        authError = utilities.authVerify(app, 2)
+        authError = utilities.authVerify(app, 1)
         if authError is not None:
             return authError
         else:        
             folderPath = f"data/course/{Semester}/{CourseCode}/submitions/{session['username']}"
+            if not os.path.exists(folderPath):
+                os.makedirs(folderPath)
             filesPaths = os.listdir(folderPath)
             filesToUUIDs = jsonIO.load_data("data/filesToUUIDs.json")
             filesName = []
@@ -257,7 +259,7 @@ def load(app):
                 
                 if Assignment['files'] != []:
                     for file in Assignment['files']:
-                        os.remove("data/course/2023-Autumn/100/files/" + file)
+                        os.remove(f"data/course/{Semester}/{CourseCode}/files/" + file)
             courseAssignment['assignments'].pop(int(index))
             try:
                 jsonIO.save_data(courseAssignment , f"data/course/{Semester}/{CourseCode}/data.json")
@@ -394,9 +396,9 @@ def load(app):
             CommonVar.accountData = jsonIO.load_data("data/accountData.json")
             for singleAccount in CommonVar.accountData:
                 if not Semester in singleAccount["study"].keys(): #這學期有沒有入學
-                    break
+                    continue
                 if not CourseCode in singleAccount["study"][Semester]: # 入學的這學期有沒有讀這課程
-                    break
+                    continue
                     
                 for AccountRecords in js:
                     if not AccountRecords['AccountID'] == singleAccount['AccountID']: #找出這個學生的成績資料

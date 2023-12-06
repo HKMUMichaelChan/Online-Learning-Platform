@@ -72,7 +72,7 @@ function updatePagination() {
       html += '<option value="B-" ' + (modifiedScore === 'B-' ? 'selected' : '') + '>B-</option>';
       html += '<option value="C+" ' + (modifiedScore === 'C+' ? 'selected' : '') + '>C+</option>';
       html += '<option value="C" ' + (modifiedScore === 'C' ? 'selected' : '') + '>C</option>';
-      html += '<option value="B+" ' + (modifiedScore === 'Failed' ? 'selected' : '') + '>Failed</option>';
+      html += '<option value="Failed" ' + (modifiedScore === 'Failed' ? 'selected' : '') + '>Failed</option>';
       html += '</select>';
       html += '</td>';
       html += '</tr>';
@@ -124,7 +124,7 @@ function submitChanges() {
         location.reload();
         })
         .catch(error => {
-        console.log('请求发生错误:', error);
+        console.log('Error:', error);
         });
 }
 

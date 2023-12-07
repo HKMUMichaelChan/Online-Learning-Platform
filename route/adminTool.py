@@ -164,9 +164,9 @@ def load(app):
 
                 auth = jsonIO.load_data("data/auth.json")
                 CommonVar.accountData = jsonIO.load_data("data/accountData.json")
-                return redirectPage("/adminTool", f"學生 {request.form.get('LastName')}{request.form.get('FirstName')}({request.form.get('AccountID')}) 注冊成功")
+                return redirectPage("/adminTool", f"Student {request.form.get('LastName')}{request.form.get('FirstName')}({request.form.get('AccountID')}) Registration successful")
             else:
-                return redirectPage("/adminTool", f"資料不正確")
+                return redirectPage("/adminTool", "Account ID Repeated")
         # return '<script>alert("提交成功！"); window.location.href="/";</script>'
 
 
@@ -190,9 +190,9 @@ def load(app):
 
                 auth = jsonIO.load_data("data/auth.json")
                 CommonVar.accountData = jsonIO.load_data("data/accountData.json")
-                return redirectPage("/adminTool", f"教師 {request.form.get('LastName')}{request.form.get('FirstName')}({request.form.get('AccountID')}) 注冊成功")
+                return redirectPage("/adminTool", f"Teacher {request.form.get('LastName')}{request.form.get('FirstName')}({request.form.get('AccountID')}) Registration successful")
             else:
-                return redirectPage("/adminTool", "Account ID 已重複")
+                return redirectPage("/adminTool", "Account ID Repeated")
 
 
     @app.route("/register/xlsx", methods= ['POST'])

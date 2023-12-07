@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Flask
 import utilities.jsonIO as jsonIO
 from utilities.initialize import initialize
@@ -10,7 +11,7 @@ from route import personalInfo, academicRecords,adminTool,coursePage, redirectPa
 app = Flask(__name__)
 
 # System Seed
-app.secret_key = 'your_secret_keya'
+app.secret_key = str(datetime.now())
 
 
 
@@ -25,4 +26,4 @@ if __name__ == "__main__":
     coursePage.load(app)
     authRoute.load(app)
 
-    app.run(host= '0.0.0.0' ,port=5000,debug=True)
+    app.run(host= '0.0.0.0' ,port=5000)

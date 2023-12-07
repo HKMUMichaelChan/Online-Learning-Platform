@@ -45,7 +45,7 @@ def load(app):
                     'username': '30000000',
                     'password': str(hashed_password)
                 })
-                print(f"密碼已設定，管理員用戶名為(\"3\" + 7個0)'30000000'")
+                print(f"The password has been set and the administrator username is (\"3\" + 7個0)'30000000'")
 
                 CommonVar.initialize = False
                 json.dump(data, file)

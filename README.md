@@ -111,5 +111,5 @@ Name | Student ID
 - Tsang Hok Ki | 13052175 
 - Chan Hoi Yuet | 13158953 
 - Wong Chi Shing | 13158326 
-- Lau Yiu Hung 13190511
+- Lau Yiu Hung | 13190511
 

@@ -22,11 +22,14 @@ This project is a Student Management System developed in Python using the Flask 
 ### Initialization
 
 ![initializeIMG](https://i.imgur.com/8QWIL52.png)
+
 When opening the server for the first time, you need to create an Admin account first.
 
 ### Authorization system
 Everyone must be logged in to use the system.
+
 ![LoginIMG](https://i.imgur.com/3uFuGCO.png)
+
 There are 3 type of account:
 - Administrator (ID Start with 3)
 - Teacher (ID Start with 2)
@@ -84,17 +87,22 @@ You can see the account Academic Records here
 For clicking the "Administrator Tools" button in Home Page
 
 You can see the Tools GUI show here
+
 ![AT](https://i.imgur.com/nV0NGxq.png)
 
 You can use the form here to help registration
+
 ![regForm](https://i.imgur.com/R5J9CKJ.png)
 
 You can Batch registration with xlsx in following format
+
 ![rformat](https://i.imgur.com/KhsgNnu.png)
 
 You can build course by using following form.
+
 ![bcForm](https://i.imgur.com/nyl8sh3.png)
 The xlsx format for adding students to a course in a semester:
+
 ![crxlsx](https://i.imgur.com/xxAzqxQ.png)
 ## Authors
 
